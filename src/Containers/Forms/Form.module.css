@@ -1,0 +1,111 @@
+.FormCard {
+  width: 90vw;
+  max-width: 30rem;
+  background-color: var(--white);
+  box-shadow: 5px 5px 15px 0px #000000;
+  color: var(--cadet);
+  border-radius: var(--radius);
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  padding: 2rem 3rem;
+}
+
+.Heading {
+  font-size: 2.5rem;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.HeaderMessage {
+  margin-bottom: 1rem;
+}
+
+.HeaderLink {
+  text-decoration: none;
+  color: var(--crayola);
+}
+
+.HeaderLink:hover {
+  text-decoration: underline;
+}
+
+.Message {
+  margin-bottom: 1rem;
+  color: var(--sienna);
+  visibility: hidden;
+}
+
+.Show {
+  visibility: visible;
+  text-transform: capitalize;
+}
+
+.Form {
+  width: 100%;
+}
+
+.Form > * {
+  margin-bottom: 2.5rem;
+}
+
+.Instructions {
+  margin-top: 0.5rem;
+}
+
+.Instructions::before {
+  content: "*";
+  margin-right: 0.5rem;
+}
+
+/* input styles */
+
+.Input {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--crayola);
+  font-size: 1.2rem;
+}
+
+.Input::placeholder {
+  font-style: italic;
+  color: var(--cadet);
+}
+
+Input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--cadet);
+}
+
+.Error {
+  border-bottom: 2px solid var(--sienna);
+}
+
+/* button styles */
+
+.Btn {
+  background-color: var(--crayola);
+  border: 1px solid var(--crayola);
+  border-radius: var(--radius);
+  font-size: 1.35rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  color: var(--cadet);
+  transition: all 0.3s linear;
+  cursor: pointer;
+  padding: 0.75rem 2rem;
+  width: 100%;
+  font-weight: 900;
+}
+
+.Btn:hover {
+  background-color: transparent;
+  color: var(--crayola);
+}
+
+.Btn:active {
+  transform: scale(1.1);
+}
