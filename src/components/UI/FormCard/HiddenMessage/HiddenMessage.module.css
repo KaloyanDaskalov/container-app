@@ -1,0 +1,9 @@
+.hiddenMessage {
+  margin-bottom: 1rem;
+  color: var(--sienna);
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}

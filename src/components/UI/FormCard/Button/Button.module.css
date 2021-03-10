@@ -1,0 +1,24 @@
+.btn {
+  background-color: var(--crayola);
+  border: 1px solid var(--crayola);
+  border-radius: var(--radius);
+  font-size: 1.35rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  color: var(--cadet);
+  transition: all 0.3s linear;
+  cursor: pointer;
+  padding: 0.5em 2em;
+  font-weight: 900;
+  width: 100%;
+  margin-top: 1.5em;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: var(--crayola);
+}
+
+.btn:active {
+  transform: scale(1.1);
+}

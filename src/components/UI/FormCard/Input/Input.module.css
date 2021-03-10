@@ -1,0 +1,26 @@
+.input {
+  display: block;
+  padding: 0.1rem 0.5rem;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--crayola);
+  font-size: 1.2rem;
+  background-color: inherit;
+  margin-bottom: 1.5em;
+}
+
+.input::placeholder {
+  font-style: italic;
+  color: var(--cadet);
+  opacity: 0.8;
+}
+
+input:focus {
+  outline: none;
+  background-color: none;
+  border-bottom: 2px solid var(--cadet);
+}
+
+.error {
+  border-bottom: 2px solid var(--sienna);
+}

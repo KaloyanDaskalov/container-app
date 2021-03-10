@@ -1,24 +1,24 @@
-import Background from '../../components/Background/Background';
-
-import classes from './Form.module.css';
+import FormCard from '../../components/UI/FormCard/FormCard';
+import Title from '../../components/UI/FormCard/Title/Title';
+import Message from '../../components/UI/FormCard/Message/Message';
+import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage';
+import Form from '../../components/UI/FormCard/Form/Form';
+import Input from '../../components/UI/FormCard/Input/Input';
+import Button from '../../components/UI/FormCard/Button/Button';
 
 export default function SignUp() {
 	return (
-		<Background>
-			<article className={classes.FormCard} >
-				<h2 className={classes.Heading}>Sign Up</h2>
-				<p className={classes.HeaderMessage}>
-					Already a member? Login
-					</p>
-				<p className={[classes.Message, classes.Show].join(' ')}>Error Message</p>
-				<form className={classes.Form} >
-					<input className={classes.Input} type="text" placeholder="Email" />
-					<input className={classes.Input} type="password" placeholder="Password" />
-					<input className={classes.Input} type="password" placeholder="Password" />
-					<p className={classes.Instructions}>Password must be at least 6 characters long</p>
-					<button type="submit" className={classes.Btn}>Sign Up</button>
-				</form>
-			</article>
-		</Background>
-	)
+		<FormCard>
+			<Title>Sign Up</Title>
+			<Message>Already a member? Login</Message>
+			<HiddenMessage>Error Message</HiddenMessage>
+			<Form>
+				<Input attributes={{ placeholder: 'Email', type: 'text' }} />
+				<Input attributes={{ placeholder: 'Password', type: 'text' }} />
+				<Input attributes={{ placeholder: 'Confirm Password', type: 'text' }} />
+				<Message>* Password must be at least 6 characters long</Message>
+				<Button>Sign Up</Button>
+			</Form>
+		</FormCard>
+	);
 }
