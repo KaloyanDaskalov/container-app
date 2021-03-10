@@ -1,7 +1,7 @@
 .FormCard {
   width: 90vw;
   max-width: 30rem;
-  background-color: var(--white);
+  background-color: var(--magnolia);
   box-shadow: 5px 5px 15px 0px #000000;
   color: var(--cadet);
   border-radius: var(--radius);
@@ -14,12 +14,11 @@
 .Heading {
   font-size: 2.5rem;
   letter-spacing: 0.2rem;
-  margin-bottom: 1rem;
   font-weight: 800;
 }
 
 .HeaderMessage {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5em;
 }
 
 .HeaderLink {
@@ -45,14 +44,10 @@
 .Form {
   width: 100%;
 }
-
-.Form > * {
-  margin-bottom: 2.5rem;
-}
-
+/* 
 .Instructions {
-  margin-top: 0.5rem;
-}
+  margin-bottom: 1.5em;
+} */
 
 .Instructions::before {
   content: "*";
@@ -63,11 +58,13 @@
 
 .Input {
   display: block;
-  padding: 0.75rem 0.5rem;
+  padding: 0.1rem 0.5rem;
   width: 100%;
   border: none;
   border-bottom: 2px solid var(--crayola);
   font-size: 1.2rem;
+  background-color: inherit;
+  margin-bottom: 1.5em;
 }
 
 .Input::placeholder {
@@ -77,6 +74,7 @@
 
 Input:focus {
   outline: none;
+  background-color: none;
   border-bottom: 2px solid var(--cadet);
 }
 
@@ -96,9 +94,10 @@ Input:focus {
   color: var(--cadet);
   transition: all 0.3s linear;
   cursor: pointer;
-  padding: 0.75rem 2rem;
-  width: 100%;
+  padding: 0.5em 2em;
   font-weight: 900;
+  width: 100%;
+  margin-top: 1.5em;
 }
 
 .Btn:hover {

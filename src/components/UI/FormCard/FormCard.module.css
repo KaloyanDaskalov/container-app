@@ -1,12 +1,12 @@
-.Container {
+.formCard {
   width: 90vw;
   max-width: 30rem;
-  background-color: var(--white);
-  box-shadow: 5px 5px 15px 0px var(--black);
+  background-color: var(--magnolia);
+  box-shadow: 5px 5px 15px 0px #000000;
   color: var(--cadet);
   border-radius: var(--radius);
   font-style: italic;
   font-weight: bold;
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 3rem;
 }
