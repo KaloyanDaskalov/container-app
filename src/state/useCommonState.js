@@ -7,24 +7,31 @@ const initialState = {
     confirmPassword: '',
     loading: false,
     error: false,
-    message: '',
+    message: 'Message',
     emailError: false,
     passwordError: false,
     confirmPasswordError: false
 };
 
 function checkForm(state) {
-    console.log(state.email);
+
     if (!emailValidation(state.email)) {
         return updateObject(state, { error: true, message: 'Invalid email', emailError: true });
     }
-    return updateObject(state, { error: false, message: 'Message', emailError: false });
+
+    if (!checkLength(6, 10, state.password.length)) {
+        return updateObject(state, { error: true, message: 'Password must be at least 6 characters long', passwordError: true });
+    }
+
+    return updateObject(state, { error: false, message: 'Message', emailError: false, passwordError: false });
 }
 
 function reducer(state, action) {
     switch (actionType(action.type)) {
         case 'EMAIL':
-            return updateObject(state, { email: action.currentEmail });
+            return updateObject(state, { email: action.value });
+        case 'PASSWORD':
+            return updateObject(state, { password: action.value });
         case 'CHECK_FORM':
             return checkForm(state);
         default:

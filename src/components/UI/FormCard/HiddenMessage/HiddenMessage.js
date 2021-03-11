@@ -5,7 +5,7 @@ export default function HiddenMessage({ children, showError }) {
 
     return (
         <p className={classList}>
-            {children}
+            {children || 'Message'}
         </p>
     )
 }

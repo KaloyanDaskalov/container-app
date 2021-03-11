@@ -10,16 +10,16 @@ import Button from '../../components/UI/FormCard/Button/Button';
 
 export default function ForgotPassword() {
 
-	const { state: { email, error, message, emailError }, dispatch } = useCommonState();
+	const { state: { error, message, emailError }, dispatch } = useCommonState();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log(email, error, message, emailError);
+
 		dispatch({ type: 'CHECK_FORM' });
 	};
 
 	const inputHandler = (e) => {
-		dispatch({ type: e.target.placeholder, currentEmail: e.target.value });
+		dispatch({ type: e.target.placeholder, value: e.target.value });
 	};
 
 	return (
