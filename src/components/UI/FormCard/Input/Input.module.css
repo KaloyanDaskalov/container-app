@@ -6,6 +6,7 @@
   border-bottom: 2px solid var(--crayola);
   font-size: 1.2rem;
   background-color: inherit;
+  color: var(--cadet);
   margin-bottom: 1.5em;
 }
 
@@ -15,11 +16,10 @@
   opacity: 0.8;
 }
 
-input:focus {
+/* .input:focus {
   outline: none;
-  background-color: none;
   border-bottom: 2px solid var(--cadet);
-}
+} */
 
 .error {
   border-bottom: 2px solid var(--sienna);
