@@ -16,7 +16,7 @@ export function updateObject(obj, props) {
     return { ...obj, ...props };
 }
 
+export function isEqual(a, b) {
+    return a === b;
+}
 
-// export function actionType(e) {
-//     return e.target.placeholder.toUpperCase().replace(/ /g, '_');
-// }

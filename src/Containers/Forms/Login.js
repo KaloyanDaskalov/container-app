@@ -1,4 +1,5 @@
 import useCommonState from '../../state/useCommonState';
+import { emailValidation, checkLength } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -14,20 +15,28 @@ export default function Login() {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log(email, password);
-		dispatch({ type: 'CHECK_FORM' });
+
+		dispatch({ type: 'RESET_ERRORS' });
+
+		if (!emailValidation(email)) {
+			return dispatch({ type: 'EMAIL_ERROR' });
+		}
+
+		if (!checkLength(6, 15, password.length)) {
+			return dispatch({ type: 'PASSWORD_ERROR' });
+		}
+
 	};
 
 	const inputHandler = (e) => {
 		dispatch({ type: e.target.placeholder, value: e.target.value });
 	};
+
 	return (
 		<FormCard>
 			<Title>Login</Title>
 			<Message>Not a member? Sign Up Now</Message>
-			<HiddenMessage showError={error}>
-				{message}
-			</HiddenMessage>
+			<HiddenMessage showError={error}>{message}</HiddenMessage>
 			<Form submit={(e) => submitHandler(e)}>
 				<Input
 					attributes={{ placeholder: 'Email', type: 'text', required: true }}
@@ -37,9 +46,7 @@ export default function Login() {
 					attributes={{ placeholder: 'Password', type: 'password', required: true }}
 					getValue={(e) => inputHandler(e)}
 					showError={passwordError} />
-				<Button
-					attributes={{ type: 'submit' }}
-				>Login</Button>
+				<Button attributes={{ type: 'submit' }}>Login</Button>
 			</Form>
 		</FormCard>
 	);

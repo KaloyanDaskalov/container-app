@@ -1,4 +1,5 @@
 import useCommonState from '../../state/useCommonState';
+import { emailValidation } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -10,12 +11,17 @@ import Button from '../../components/UI/FormCard/Button/Button';
 
 export default function ForgotPassword() {
 
-	const { state: { error, message, emailError }, dispatch } = useCommonState();
+	const { state: { email, error, message, emailError }, dispatch } = useCommonState();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		dispatch({ type: 'CHECK_FORM' });
+		dispatch({ type: 'RESET_ERRORS' });
+
+		if (!emailValidation(email)) {
+			return dispatch({ type: 'EMAIL_ERROR' });
+		}
+
 	};
 
 	const inputHandler = (e) => {
@@ -34,7 +40,7 @@ export default function ForgotPassword() {
 					getValue={(e) => inputHandler(e)}
 					showError={emailError}
 				/>
-				<Button>Reset</Button>
+				<Button attributes={{ type: 'submit' }}>Reset</Button>
 			</Form>
 			<Message>Cancel</Message>
 		</FormCard>
