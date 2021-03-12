@@ -1,0 +1,29 @@
+.banner {
+  margin: 0 auto;
+  padding: 3rem;
+  word-wrap: break-word;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.title,
+.slogan {
+  text-align: center;
+  color: var(--crayola);
+}
+
+.title {
+  font-size: 5rem;
+}
+
+.title::first-letter {
+  color: var(--sienna);
+}
+
+.slogan {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.red {
+  color: var(--sienna);
+}
