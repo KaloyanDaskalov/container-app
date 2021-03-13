@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Login from './components/Forms/Login';
 import ForgotPassword from './components/Forms/ForgotPassword';
 import SignUp from './components/Forms/SignUp';
+// import Loader from './components/UI/Loader/Loader';
 
 function App() {
   return (

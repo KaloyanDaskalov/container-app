@@ -51,7 +51,7 @@ export default function Login() {
 					showError={passwordError} />
 				<Button attributes={{ type: 'submit' }}>Login</Button>
 			</Form>
-			<NavLink href='/forgot-password'>Forgot Password</NavLink>
+			<NavLink href='/forgot-password'>Forgot Password?</NavLink>
 		</FormCard>
 	);
 }

@@ -27,8 +27,14 @@ function reducer(state, action) {
             return updateObject(state, { error: true, message: 'Invalid email', emailError: true });
         case 'PASSWORD_ERROR':
             return updateObject(state, { error: true, message: 'Password must be 6 to 15 characters long', passwordError: true });
+        case 'ASYNC_ERROR':
+            return updateObject(state, { error: true, message: action.err });
         case 'CONFIRM_PASSWORD_ERROR':
             return updateObject(state, { error: true, message: 'Confirm password don\'t match', confirmPasswordError: true });
+        case 'START_LOADING':
+            return updateObject(state, { loading: true });
+        case 'END_LOADING':
+            return updateObject(state, { loading: false });
         default:
             throw new Error('Unhandled action' + action.type);
     }

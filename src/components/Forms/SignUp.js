@@ -1,3 +1,4 @@
+import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
 import { emailValidation, checkLength, isEqual } from '../../Utility/index';
 
@@ -12,9 +13,11 @@ import NavLink from '../UI/NavLink/NavLink';
 
 export default function SignUp() {
 
-	const { state: { email, password, confirmPassword, error, message, emailError, passwordError, confirmPasswordError }, dispatch } = useCommonState();
+	const { state: { email, password, confirmPassword, error, message, emailError, passwordError, confirmPasswordError, loading }, dispatch } = useCommonState();
 
-	const submitHandler = (e) => {
+	const { signup } = useAuth();
+
+	const submitHandler = async (e) => {
 		e.preventDefault();
 
 		dispatch({ type: 'RESET_ERRORS' });
@@ -31,7 +34,15 @@ export default function SignUp() {
 			return dispatch({ type: 'CONFIRM_PASSWORD_ERROR' });
 		}
 
-		console.log('Success');
+		try {
+			dispatch({ type: 'START_LOADING' });
+			console.log(loading);
+			await signup(email, password);
+			// history.push('/');
+		} catch (error) {
+			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed' });
+			dispatch({ type: 'END_LOADING' });
+		}
 	};
 
 	const inputHandler = (e) => {
