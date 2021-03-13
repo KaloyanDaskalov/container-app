@@ -1,4 +1,5 @@
 import Background from '../Background/Background';
+
 import classes from './Hero.module.css';
 
 export default function Hero() {

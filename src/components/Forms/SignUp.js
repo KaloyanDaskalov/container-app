@@ -8,6 +8,7 @@ import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMess
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
+import NavLink from '../UI/NavLink/NavLink';
 
 export default function SignUp() {
 
@@ -40,7 +41,9 @@ export default function SignUp() {
 	return (
 		<FormCard>
 			<Title>Sign Up</Title>
-			<Message>Already a member? Login</Message>
+			<Message>
+				Already a member? <NavLink href='/login'>Login</NavLink>
+			</Message>
 			<HiddenMessage showError={error}>{message}</HiddenMessage>
 			<Form submit={(e) => submitHandler(e)}>
 				<Input

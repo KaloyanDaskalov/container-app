@@ -1,0 +1,14 @@
+.reset {
+  text-decoration: none;
+  color: var(--crayola);
+  letter-spacing: 0.025rem;
+}
+
+.link {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.reset:hover {
+  border-bottom: 3px solid var(--cadet);
+}

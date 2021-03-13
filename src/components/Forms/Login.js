@@ -8,6 +8,7 @@ import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMess
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
+import NavLink from '../UI/NavLink/NavLink';
 
 
 export default function Login() {
@@ -35,7 +36,9 @@ export default function Login() {
 	return (
 		<FormCard>
 			<Title>Login</Title>
-			<Message>Not a member? Sign Up Now</Message>
+			<Message>
+				Not a member? <NavLink href='/signup'>Sign Up Now</NavLink>
+			</Message>
 			<HiddenMessage showError={error}>{message}</HiddenMessage>
 			<Form submit={(e) => submitHandler(e)}>
 				<Input
@@ -48,6 +51,7 @@ export default function Login() {
 					showError={passwordError} />
 				<Button attributes={{ type: 'submit' }}>Login</Button>
 			</Form>
+			<NavLink href='/forgot-password'>Forgot Password</NavLink>
 		</FormCard>
 	);
 }

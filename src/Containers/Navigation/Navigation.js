@@ -1,22 +1,27 @@
-import classes from './Navigation.module.css';
+import Wrapper from '../../components/Wrapper/Wrapper';
 import logo from '../../assets/logo/logo.svg';
+import NavLink from '../../components/UI/NavLink/NavLink';
+
+import classes from './Navigation.module.css';
 
 export default function Navigation() {
     return (
         <header className={classes.header}>
-            <div className={classes.logo}>
-                <img src={logo} alt="" />
-            </div>
-            <nav>
-                <ul className={classes.navbar}>
-                    <li>
-                        Login
-                    </li>
-                    <li>
-                        Register
-                    </li>
-                </ul>
-            </nav>
+            <Wrapper addClass='flex'>
+                <div className={classes.logo}>
+                    <NavLink href='/' ><img src={logo} alt="logo" /></NavLink>
+                </div>
+                <nav>
+                    <ul className={classes.navbar}>
+                        <li>
+                            <NavLink href='/login' addClass={'link'}>Login</NavLink>
+                        </li>
+                        <li>
+                            <NavLink href='/signup' addClass={'link'}>Register</NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            </Wrapper>
         </header>
     )
 }

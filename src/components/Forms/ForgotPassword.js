@@ -3,11 +3,11 @@ import { emailValidation } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
-import Message from '../../components/UI/FormCard/Message/Message';
 import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage';
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
+import NavLink from '../UI/NavLink/NavLink';
 
 export default function ForgotPassword() {
 
@@ -42,7 +42,7 @@ export default function ForgotPassword() {
 				/>
 				<Button attributes={{ type: 'submit' }}>Reset</Button>
 			</Form>
-			<Message>Cancel</Message>
+			<NavLink href='/login'>Cancel</NavLink>
 		</FormCard>
 	)
 }

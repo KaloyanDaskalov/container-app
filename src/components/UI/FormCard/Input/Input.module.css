@@ -7,7 +7,7 @@
   font-size: 1.2rem;
   background-color: inherit;
   color: var(--cadet);
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
 }
 
 .input::placeholder {
