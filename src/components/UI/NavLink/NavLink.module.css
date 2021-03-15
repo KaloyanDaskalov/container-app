@@ -2,6 +2,7 @@
   text-decoration: none;
   color: var(--crayola);
   letter-spacing: 0.025rem;
+  transition: all 0.3s linear;
 }
 
 .link {
@@ -11,4 +12,5 @@
 
 .reset:hover {
   border-bottom: 3px solid var(--cadet);
+  color: var(--cadet);
 }
