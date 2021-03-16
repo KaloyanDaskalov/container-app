@@ -1,6 +1,7 @@
-import Wrapper from '../../components/Wrapper/Wrapper';
 import logo from '../../assets/logo/logo.svg';
+import Wrapper from '../../components/Wrapper/Wrapper';
 import NavLink from '../../components/UI/NavLink/NavLink';
+import Separator from '../../components/Separator/Separator';
 
 import classes from './Navigation.module.css';
 
@@ -22,6 +23,7 @@ export default function Navigation() {
                     </ul>
                 </nav>
             </Wrapper>
+            <Separator />
         </header>
     )
 }

@@ -5,5 +5,5 @@ export default function Background({ children }) {
         <div className={classes.Container}>
             {children}
         </div>
-    )
+    );
 }
