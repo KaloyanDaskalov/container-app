@@ -7,3 +7,7 @@
 .show {
   visibility: visible;
 }
+
+.success {
+  color: var(--green);
+}

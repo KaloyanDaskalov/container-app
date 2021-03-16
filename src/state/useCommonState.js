@@ -35,6 +35,8 @@ function reducer(state, action) {
             return updateObject(state, { loading: true });
         case 'END_LOADING':
             return updateObject(state, { loading: false });
+        case 'SUCCESS':
+            return updateObject(state, { error: true, message: action.success });
         default:
             throw new Error('Unhandled action' + action.type);
     }

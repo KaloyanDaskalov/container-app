@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { auth } from '../firebase/firebase';
 
 import Loader from '../components/UI/Loader/Loader';
+import Wrapper from '../components/Wrapper/Wrapper';
 
 const AuthContext = React.createContext();
 
@@ -18,7 +19,7 @@ export default function AuthProvider({ children }) {
 		return auth.createUserWithEmailAndPassword(email, password);
 	}
 
-	function signIn(email, password) {
+	function login(email, password) {
 		return auth.signInWithEmailAndPassword(email, password);
 	}
 
@@ -49,7 +50,7 @@ export default function AuthProvider({ children }) {
 	const context = {
 		user,
 		signup,
-		signIn,
+		login,
 		signOut,
 		resetPassword,
 		updateEmail,
@@ -60,7 +61,7 @@ export default function AuthProvider({ children }) {
 
 	return (
 		<AuthContext.Provider value={context} >
-			{loading ? <Loader /> : children}
+			{loading ? <Wrapper addClass='flex height'><Loader /></Wrapper> : children}
 		</AuthContext.Provider>
 	);
 }

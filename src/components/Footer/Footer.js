@@ -6,7 +6,7 @@ export default function Footer() {
 
     return (
         <footer className={classes.footer}>
-            <p className={classes.footerText}>Copyright &copy; {date} Containers.bg. All rights reserved</p>
+            <p className={classes.footerText}>Copyright &copy; {date} Containers. All rights reserved</p>
         </footer>
     )
 }

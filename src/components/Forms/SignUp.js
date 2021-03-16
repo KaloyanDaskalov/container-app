@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
@@ -16,11 +16,11 @@ import Loader from '../UI/Loader/Loader';
 
 export default function SignUp() {
 
-	const { state: { email, password, confirmPassword, error, message, emailError, passwordError, confirmPasswordError }, dispatch } = useCommonState();
+	const { state: { email, password, confirmPassword, error, message, emailError, passwordError, confirmPasswordError, loading }, dispatch } = useCommonState();
 
 	const { signup } = useAuth();
 
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
@@ -40,13 +40,15 @@ export default function SignUp() {
 		}
 
 		try {
-			setLoading(true);
+			// setLoading(true);
+			dispatch({ type: 'START_LOADING' });
 			await signup(email, password);
 			// history.push('/');
 		} catch (error) {
-			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed' });
+			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to create account' });
 		}
-		setLoading(false);
+		// setLoading(false);
+		dispatch({ type: 'END_LOADING' });
 	};
 
 	const inputHandler = (e) => {
