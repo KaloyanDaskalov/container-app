@@ -2,15 +2,38 @@
   text-decoration: none;
   color: var(--crayola);
   letter-spacing: 0.025rem;
-  transition: all 0.3s linear;
+  display: inline-block;
 }
 
 .link {
   font-size: 1.25rem;
   font-weight: 700;
+  transition: all 0.3s linear;
 }
 
-.reset:hover {
-  border-bottom: 3px solid var(--cadet);
+.link:hover {
+  border-bottom: 4px solid var(--cadet);
   color: var(--cadet);
+}
+
+.btn {
+  padding: 0.5em 1em;
+  border: 2px solid var(--crayola);
+  border-radius: 2em;
+  font-weight: 700;
+  transition: all 0.3s linear;
+}
+
+.btn:hover {
+  background-color: var(--crayola);
+  color: var(--magnolia);
+}
+
+.nested {
+  transition: all 0.3s linear;
+  font-weight: 900;
+}
+
+.nested:hover {
+  transform: translateY(-4px);
 }

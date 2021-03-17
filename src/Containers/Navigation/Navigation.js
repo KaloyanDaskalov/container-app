@@ -27,6 +27,9 @@ export default function Navigation() {
                         <li>
                             <NavLink href='/about' addClass={'link'}>ABOUT</NavLink>
                         </li>
+                        <li>
+                            <NavLink href='/contact' addClass={'link'}>CONTACTS</NavLink>
+                        </li>
                     </ul>
                 </nav>
             </Wrapper>

@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
 import { emailValidation, checkLength, isEqual } from '../../Utility/index';
@@ -20,8 +18,6 @@ export default function SignUp() {
 
 	const { signup } = useAuth();
 
-	// const [loading, setLoading] = useState(false);
-
 	const submitHandler = async (e) => {
 		e.preventDefault();
 
@@ -40,14 +36,12 @@ export default function SignUp() {
 		}
 
 		try {
-			// setLoading(true);
 			dispatch({ type: 'START_LOADING' });
 			await signup(email, password);
 			// history.push('/');
 		} catch (error) {
 			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to create account' });
 		}
-		// setLoading(false);
 		dispatch({ type: 'END_LOADING' });
 	};
 
@@ -78,7 +72,7 @@ export default function SignUp() {
 		<FormCard>
 			<Title>Sign Up</Title>
 			<Message>
-				Already a member? <NavLink href='/login'>Login</NavLink>
+				Already a member? <NavLink href='/login' addClass='nested'>Login</NavLink>
 			</Message>
 			<HiddenMessage showError={error}>{message}</HiddenMessage>
 			{loading ? <Loader /> : signUpForm}

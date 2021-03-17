@@ -64,11 +64,11 @@ export default function Login() {
 		<FormCard>
 			<Title>Login</Title>
 			<Message>
-				Not a member? <NavLink href='/signup'>Sign Up Now</NavLink>
+				Not a member? <NavLink href='/signup' addClass='nested'>Sign Up Now</NavLink>
 			</Message>
 			<HiddenMessage showError={error}>{message}</HiddenMessage>
 			{loading ? <Loader /> : loginForm}
-			<NavLink href='/forgot-password'>Forgot Password?</NavLink>
+			<NavLink href='/forgot-password' addClass='nested'>Forgot Password?</NavLink>
 		</FormCard>
 	);
 }

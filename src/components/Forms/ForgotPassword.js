@@ -61,7 +61,7 @@ export default function ForgotPassword() {
 				{message}
 			</HiddenMessage>
 			{loading ? <Loader /> : resetForm}
-			<NavLink href='/login'>Cancel</NavLink>
+			<NavLink href='/login' addClass='nested'>Cancel</NavLink>
 		</FormCard>
-	)
+	);
 }

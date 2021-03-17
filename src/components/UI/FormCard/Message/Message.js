@@ -1,8 +1,15 @@
 import classes from './Message.module.css';
 
-export default function Message({ children }) {
+export default function Message({ children, addClass }) {
+
+    const classList = [classes.message];
+
+    if (addClass) {
+        addClass.split(' ').forEach(c => classList.push(classes[c]));
+    }
+
     return (
-        <p className={classes.message}>
+        <p className={classList.join(' ')}>
             {children}
         </p>
     );

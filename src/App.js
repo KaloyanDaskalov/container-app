@@ -11,6 +11,7 @@ import ForgotPassword from './components/Forms/ForgotPassword';
 import SignUp from './components/Forms/SignUp';
 import Home from './Containers/Home/Home';
 import About from './components/About/About';
+import ContactUs from './components/ContactUs/ContactUs';
 // import Loader from './components/UI/Loader/Loader';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <PublicRoute path='/signup' component={SignUp} />
         <PublicRoute path='/forgot-password' component={ForgotPassword} />
         <Route path='/about' component={About} />
+        <Route path='/contact' component={ContactUs} />
       </Switch>
       <Footer />
     </>
