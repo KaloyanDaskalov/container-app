@@ -11,9 +11,7 @@ import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
 import TextArea from '../UI/FormCard/TextArea/TextArea';
 import Loader from '../UI/Loader/Loader';
-import { MdEmail } from "react-icons/md";
-import { MdPhone } from "react-icons/md";
-import { MdMap } from "react-icons/md";
+import { MdEmail, MdPhone, MdMap } from "react-icons/md";
 
 import classes from './ContactUs.module.css';
 
@@ -75,8 +73,8 @@ export default function ContactUs() {
         <FormCard>
             <Title >Contact Us</Title>
             <HiddenMessage showError={error}>{message}</HiddenMessage>
-            <Message addClass='tl'><MdMap className={classes.icon} /> Sofia, Tsar Samuil 20 </Message>
-            <Message addClass='tl'><MdEmail className={classes.icon} />some@mail.com</Message>
+            <Message addClass='tl mb'><MdMap className={classes.icon} /> Sofia, Tsar Samuil 20 </Message>
+            <Message addClass='tl mb'><MdEmail className={classes.icon} />some@mail.com</Message>
             <Message addClass='tl'><MdPhone className={classes.icon} />+359888222111</Message>
             {loading ? <Loader /> : loginForm}
         </FormCard>

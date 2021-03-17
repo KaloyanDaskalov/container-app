@@ -64,7 +64,7 @@ export default function SignUp() {
 				getValue={(e) => inputHandler(e)}
 				showError={confirmPasswordError} />
 			<Message>* Password must be 6 to 15 characters long</Message>
-			<Button attributes={{ type: 'submit' }} disabled={loading}>Sign Up</Button>
+			<Button attributes={{ type: 'submit' }}>Sign Up</Button>
 		</Form>
 	);
 
