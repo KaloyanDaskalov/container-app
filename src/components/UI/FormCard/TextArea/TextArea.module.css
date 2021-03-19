@@ -1,22 +1,22 @@
 .area {
-    display: block;
-    padding: 0.1rem 0.5rem;
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid var(--crayola);
-    font-size: 1.2rem;
-    background-color: inherit;
-    color: var(--cadet);
-    margin-bottom: 1em;
-  }
-  
-  .area::placeholder {
-    font-style: italic;
-    color: var(--cadet);
-    opacity: 0.8;
-  }
-  
-  .error {
-    border-bottom: 2px solid var(--sienna);
-  }
-  
+  display: block;
+  padding: 0.1rem 0.5rem;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--crayola);
+  font-size: 1.2rem;
+  background-color: inherit;
+  color: var(--cadet);
+  margin-bottom: 1em;
+  min-height: 10rem;
+}
+
+.area::placeholder {
+  font-style: italic;
+  color: var(--cadet);
+  opacity: 0.8;
+}
+
+.error {
+  border-bottom: 2px solid var(--sienna);
+}

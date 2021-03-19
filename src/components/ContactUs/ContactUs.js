@@ -1,6 +1,5 @@
-import { useRef } from 'react';
 import useCommonState from '../../state/useCommonState';
-import { emailValidation } from '../../Utility/index';
+import { emailValidation, checkLength } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -16,10 +15,7 @@ import { MdEmail, MdPhone, MdMap } from "react-icons/md";
 import classes from './ContactUs.module.css';
 
 export default function ContactUs() {
-    const { state: { email, error, message, emailError, loading }, dispatch } = useCommonState();
-
-    const name = useRef('');
-    const question = useRef('');
+    const { state: { email, error, message, emailError, loading, name, communication, passwordError: nameError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -30,7 +26,13 @@ export default function ContactUs() {
             return dispatch({ type: 'EMAIL_ERROR' });
         }
 
-        console.log(name.current.value, email, question.current.value);
+        if (!checkLength(2, 50, name.length)) {
+            return dispatch({ type: 'NAME_ERROR', err: 'Name must at least 2 characters long' });
+        }
+
+        if (!checkLength(10, 200, communication.length)) {
+            return dispatch({ type: 'TITLE_ERROR', err: 'Description must 10 to 200 characters long' });
+        }
 
         dispatch({ type: 'START_LOADING' });
 
@@ -39,12 +41,13 @@ export default function ContactUs() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name.current.value, email, question: question.current.value })
+            body: JSON.stringify({ name, email, communication })
         })
             .then(res => res.json)
-            .then(console.log)
+            .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send, wait for email' }))
             .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to send' }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
+
     };
 
     const inputHandler = (e) => {
@@ -56,15 +59,18 @@ export default function ContactUs() {
             submit={(e) => submitHandler(e)}
             addClass='mt'>
             <Input
-                attributes={{ placeholder: 'Name', type: 'text', required: true, ref: name }} />
-            <Input
                 attributes={{ placeholder: 'Email', type: 'text', required: true }}
                 getValue={(e) => inputHandler(e)}
                 showError={emailError} />
+            <Input
+                attributes={{ placeholder: 'Name', type: 'text', required: true }}
+                getValue={(e) => inputHandler(e)}
+                showError={nameError}
+            />
             <TextArea
-                attributes={{ placeholder: 'Message', required: true, ref: question }}
-                ref={question}>
-            </TextArea>
+                attributes={{ placeholder: 'Communication', type: 'text', required: true }}
+                getValue={(e) => inputHandler(e)}
+                showError={descriptionError} />
             <Button attributes={{ type: 'submit' }}>Send</Button>
         </Form>
     );

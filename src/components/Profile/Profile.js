@@ -26,15 +26,14 @@ export default function Profile() {
             return dispatch({ type: 'EMAIL_ERROR' });
         }
 
-        // try {
-        // 	dispatch({ type: 'START_LOADING' });
-        // 	await signup(email, password);
-        // 	// history.push('/');
-        // } catch (error) {
-        // 	dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to create account' });
-        // }
-        // dispatch({ type: 'END_LOADING' });
-        console.log('success');
+        try {
+            dispatch({ type: 'START_LOADING' });
+            await updateEmail(email);
+            dispatch({ type: 'SUCCESS', success: 'Success! Logout and login with your new email' });
+        } catch (error) {
+            dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to update' });
+        }
+        dispatch({ type: 'END_LOADING' });
     };
 
     const passwordHandler = async (e) => {
@@ -50,15 +49,14 @@ export default function Profile() {
             return dispatch({ type: 'CONFIRM_PASSWORD_ERROR' });
         }
 
-        // try {
-        // 	dispatch({ type: 'START_LOADING' });
-        // 	await signup(email, password);
-        // 	// history.push('/');
-        // } catch (error) {
-        // 	dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to create account' });
-        // }
-        // dispatch({ type: 'END_LOADING' });
-        console.log('success');
+        try {
+            dispatch({ type: 'START_LOADING' });
+            await updatePassword(password);
+            dispatch({ type: 'SUCCESS', success: 'Success! Logout and login with your new password' });
+        } catch (error) {
+            dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to update' });
+        }
+        dispatch({ type: 'END_LOADING' });
     };
 
     const logoutHandler = () => {

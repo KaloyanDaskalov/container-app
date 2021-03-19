@@ -10,7 +10,12 @@ const initialState = {
     message: 'Message',
     emailError: false,
     passwordError: false,
-    confirmPasswordError: false
+    confirmPasswordError: false,
+    name: '',
+    communication: '',
+    title: '',
+    imageUrl: '',
+    description: ''
 };
 
 function reducer(state, action) {
@@ -37,6 +42,24 @@ function reducer(state, action) {
             return updateObject(state, { loading: false });
         case 'SUCCESS':
             return updateObject(state, { error: true, message: action.success });
+        case 'NAME':
+            return updateObject(state, { name: action.value });
+        case 'COMMUNICATION':
+            return updateObject(state, { communication: action.value });
+        case 'TITLE':
+            return updateObject(state, { title: action.value });
+        case 'IMAGE_URL':
+            return updateObject(state, { imageUrl: action.value });
+        case 'DESCRIPTION':
+            return updateObject(state, { description: action.value });
+        case 'TITLE_ERROR':
+            return updateObject(state, { error: true, message: action.err, emailError: true });
+        case 'IMAGE_ERROR':
+            return updateObject(state, { error: true, message: action.err, passwordError: true });
+        case 'NAME_ERROR':
+            return updateObject(state, { error: true, message: action.err, passwordError: true });
+        case 'DESCRIPTION_ERROR':
+            return updateObject(state, { error: true, message: action.err, confirmPasswordError: true });
         default:
             throw new Error('Unhandled action' + action.type);
     }

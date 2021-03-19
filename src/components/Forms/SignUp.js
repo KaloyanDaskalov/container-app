@@ -38,7 +38,6 @@ export default function SignUp() {
 		try {
 			dispatch({ type: 'START_LOADING' });
 			await signup(email, password);
-			// history.push('/');
 		} catch (error) {
 			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to create account' });
 		}

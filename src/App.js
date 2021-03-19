@@ -13,6 +13,7 @@ import Home from './Containers/Home/Home';
 import About from './components/About/About';
 import ContactUs from './components/ContactUs/ContactUs';
 import Profile from './components/Profile/Profile';
+import Create from './Containers/Create/Create';
 // import Loader from './components/UI/Loader/Loader';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Switch>
         <PrivateRoute path='/' exact component={Home} />
         <PrivateRoute path='/profile' exact component={Profile} />
+        <PrivateRoute path='/create' exact component={Create} />
         <PublicRoute path='/hero' component={Hero} />
         <PublicRoute path='/login' component={Login} />
         <PublicRoute path='/signup' component={SignUp} />

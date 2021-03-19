@@ -33,7 +33,6 @@ export default function Login() {
 		try {
 			dispatch({ type: 'START_LOADING' });
 			await login(email, password);
-			// history.push('/');
 		} catch (error) {
 			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to login' });
 		}
