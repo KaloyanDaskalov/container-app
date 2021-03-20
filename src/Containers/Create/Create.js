@@ -22,8 +22,8 @@ export default function Create() {
 
         dispatch({ type: 'RESET_ERRORS' });
 
-        if (!checkLength(10, 100, title.length)) {
-            return dispatch({ type: 'TITLE_ERROR', err: 'Title must 10 to 100 characters long' });
+        if (!checkLength(5, 100, title.length)) {
+            return dispatch({ type: 'TITLE_ERROR', err: 'Title must 5 to 100 characters long' });
         }
 
         if (!isValidURL(imageUrl)) {
@@ -34,6 +34,8 @@ export default function Create() {
             return dispatch({ type: 'DESCRIPTION_ERROR', err: 'Description must 50 to 1000 characters long' });
         }
 
+        dispatch({ type: 'START_LOADING' });
+
         fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles.json', {
             method: 'POST',
             headers: {
@@ -42,7 +44,8 @@ export default function Create() {
             body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid })
         })
             .then(res => res.json)
-            .then(console.log)
+            .then(_ =>
+                dispatch({ type: 'SUCCESS', success: 'Success! Your article was created' }))
             .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to create' }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
     };
@@ -51,7 +54,7 @@ export default function Create() {
         dispatch({ type: e.target.placeholder, value: e.target.value });
     };
 
-    const signUpForm = (
+    const createForm = (
         <Form submit={(e) => submitHandler(e)}>
             <Input
                 attributes={{ placeholder: 'Title', type: 'text', required: true }}
@@ -73,7 +76,7 @@ export default function Create() {
         <FormCard addClass='wide'>
             <Title>Create Article</Title>
             <HiddenMessage showError={error}>{message}</HiddenMessage>
-            {loading ? <Loader /> : signUpForm}
+            {loading ? <Loader /> : createForm}
         </FormCard>
     );
 }

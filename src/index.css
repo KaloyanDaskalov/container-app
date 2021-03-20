@@ -3,9 +3,9 @@
 :root {
   box-sizing: border-box;
   --magnolia: #fffaff;
-  --cultured: #F6F6F6;
+  --cultured: #f6f6f6;
   --crayola: #3e92cc;
-  --green: #62C370;
+  --green: #62c370;
   --cadet: #2d3142;
   --sienna: #ee6c4d;
   --white: #fff;
@@ -40,10 +40,6 @@ img {
   max-width: 100%;
   display: block;
 }
-
-/* article > * + * {
-  margin-top: 1em;
-} */
 
 input,
 button,
