@@ -1,6 +1,6 @@
 import classes from './HiddenMessage.module.css';
 
-export default function HiddenMessage({ children, showError }) {
+export default function HiddenMessage({ children = 'Message', showError }) {
     const classList =
         [
             classes.hiddenMessage,
@@ -10,7 +10,7 @@ export default function HiddenMessage({ children, showError }) {
 
     return (
         <p className={classList}>
-            {children || 'Message'}
+            {children}
         </p>
     )
 }

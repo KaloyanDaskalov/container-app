@@ -3,14 +3,12 @@
 :root {
   box-sizing: border-box;
   --magnolia: #fffaff;
-  --cultured: #f6f6f6;
   --crayola: #3e92cc;
   --green: #62c370;
   --cadet: #2d3142;
   --sienna: #ee6c4d;
   --white: #fff;
   --black: #000;
-  --radius: 0.5rem;
 }
 
 *,
@@ -34,10 +32,11 @@ h2,
 h3,
 h4 {
   font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.2rem;
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   display: block;
 }
 

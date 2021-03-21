@@ -1,0 +1,38 @@
+.article {
+  border: 5px solid var(--crayola);
+  overflow: hidden;
+  border-radius: 1rem;
+  margin-bottom: 3rem;
+  transition: all 0.3s linear;
+  color: var(--cadet);
+}
+
+.article:hover {
+  box-shadow: 0 0 0 5px var(--cadet);
+}
+
+.img {
+  object-fit: cover;
+}
+
+.info {
+  padding: 2rem 1rem;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.author {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.bold {
+  color: var(--crayola);
+  font-weight: 800;
+}

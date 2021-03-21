@@ -45,8 +45,8 @@ export default function Navigation() {
                         {
                             links.map(l => {
                                 return (
-                                    <li>
-                                        <NavLink key={l.name} href={l.path} addClass={'link'}>{l.name}</NavLink>
+                                    <li key={l.name}>
+                                        <NavLink href={l.path} addClass={'link'}>{l.name}</NavLink>
                                     </li>
                                 );
                             })

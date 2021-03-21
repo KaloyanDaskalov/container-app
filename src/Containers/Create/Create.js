@@ -11,6 +11,8 @@ import Button from '../../components/UI/FormCard/Button/Button';
 import TextArea from '../../components/UI/FormCard/TextArea/TextArea';
 import Loader from '../../components/UI/Loader/Loader';
 
+const options = { month: 'long', day: 'numeric', year: 'numeric' }
+
 export default function Create() {
 
     const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError, loading }, dispatch } = useCommonState();
@@ -36,14 +38,16 @@ export default function Create() {
 
         dispatch({ type: 'START_LOADING' });
 
+        const date = new Date();
+
         fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles.json', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid })
+            body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options) })
         })
-            .then(res => res.json)
+            .then(res => res.json())
             .then(_ =>
                 dispatch({ type: 'SUCCESS', success: 'Success! Your article was created' }))
             .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to create' }))

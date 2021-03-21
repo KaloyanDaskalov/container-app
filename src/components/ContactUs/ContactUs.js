@@ -43,7 +43,7 @@ export default function ContactUs() {
             },
             body: JSON.stringify({ name, email, communication })
         })
-            .then(res => res.json)
+            .then(res => res.json())
             .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send, wait for email' }))
             .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to send' }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
