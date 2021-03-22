@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
 
+import Main from '../../components/Main/Main';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import Title from '../../components/UI/FormCard/Title/Title';
 import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage';
@@ -37,19 +39,22 @@ export default function Home() {
         fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles.json')
             .then(res => res.json())
             .then(data => setArticles(converter(data)))
-            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to load' }))
+            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
     }, [dispatch]);
 
     return (
-        <main className={classes.main}>
+        <Main>
             <Wrapper addClass='card'>
                 <Title addClass='crayola'>Hello {user.email}</Title>
                 <HiddenMessage showError={error}>{message}</HiddenMessage>
             </Wrapper>
             <Wrapper>
-                {loading ? <Loader /> : articles?.map(a => <Article key={a.id} {...a} />)}
+                {loading ? <Loader /> : articles?.map(a =>
+                    <Link to={'/details/' + a.id} key={a.id} className={classes.link}>
+                        <Article  {...a} />
+                    </Link>)}
             </Wrapper>
-        </main>
+        </Main>
     );
 }
