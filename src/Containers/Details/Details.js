@@ -31,8 +31,10 @@ export default function Details(props) {
 			</Wrapper>
 			<Wrapper>
 				{loading ? <Loader /> : <Article {...article} detailedView={true} />}
-				<Button clicked={() => props.history.push('/')}>Home</Button>
-				<Button clicked={() => props.history.push('/my-articles')}>My Articles</Button>
+				<Wrapper addClass='flex'>
+					<Button clicked={() => props.history.push('/')} >Home</Button>
+					<Button clicked={() => props.history.push('/my-articles')} >My Articles</Button>
+				</Wrapper>
 			</Wrapper>
 		</Main>
 	);
