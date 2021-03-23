@@ -1,3 +1,13 @@
+.detailed {
+  border: 5px solid var(--crayola);
+  overflow: hidden;
+  border-radius: 1rem;
+  margin: 0 auto;
+  color: var(--cadet);
+  background-color: var(--magnolia);
+  width: min(80%, 40rem);
+}
+
 .article {
   border: 5px solid var(--crayola);
   overflow: hidden;
@@ -44,7 +54,7 @@
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
   }
-  .img {
+  .article .img {
     height: 15rem;
   }
 }

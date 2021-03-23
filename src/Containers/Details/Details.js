@@ -29,8 +29,8 @@ export default function Details(props) {
 			<Wrapper addClass='card'>
 				<HiddenMessage showError={error}>{message}</HiddenMessage>
 			</Wrapper>
-			<Wrapper addClass='details'>
-				{loading ? <Loader /> : <Article {...article} />}
+			<Wrapper>
+				{loading ? <Loader /> : <Article {...article} detailedView={true} />}
 				<Button clicked={() => props.history.push('/')}>Home</Button>
 				<Button clicked={() => props.history.push('/my-articles')}>My Articles</Button>
 			</Wrapper>

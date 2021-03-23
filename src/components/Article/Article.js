@@ -2,9 +2,9 @@ import image from '../../assets/images/pexels-pixabay-163726.jpg'
 
 import classes from './Article.module.css';
 
-export default function Article({ imageUrl = '', title = '', author = '', date = '', description = '' }) {
+export default function Article({ imageUrl = '', title = '', author = '', date = '', description = '', detailedView = false }) {
 	return (
-		<article className={classes.article}>
+		<article className={detailedView ? classes.detailed : classes.article}>
 			<figure>
 				<img
 					className={classes.img}
