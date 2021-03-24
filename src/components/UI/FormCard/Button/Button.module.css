@@ -22,3 +22,7 @@
 .btn:active {
   transform: scale(1.1);
 }
+
+.border {
+  border-color: var(--cadet);
+}

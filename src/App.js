@@ -16,6 +16,7 @@ import Profile from './components/Profile/Profile';
 import Create from './Containers/Create/Create';
 import Details from './Containers/Details/Details';
 import MyArticles from './Containers/MyArticles/MyArticles';
+import Update from './Containers/Update/Update';
 // import Loader from './components/UI/Loader/Loader';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/create' component={Create} />
         <PrivateRoute path='/details/:id' component={Details} />
+        <PrivateRoute path='/update/:id' component={Update} />
         <PrivateRoute path='/my-articles' component={MyArticles} />
         <PublicRoute path='/hero' component={Hero} />
         <PublicRoute path='/login' component={Login} />

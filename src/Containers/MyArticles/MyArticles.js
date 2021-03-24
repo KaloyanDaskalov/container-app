@@ -9,7 +9,6 @@ import Wrapper from '../../components/Wrapper/Wrapper';
 import Title from '../../components/UI/FormCard/Title/Title';
 import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage';
 import Article from '../../components/Article/Article';
-import Button from '../../components/UI/FormCard/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
 
 export default function MyArticles() {
@@ -48,14 +47,12 @@ export default function MyArticles() {
                 <Title addClass='crayola'>Hello {user.email}</Title>
                 <HiddenMessage showError={error}>{message}</HiddenMessage>
             </Wrapper>
-            {loading ? <Loader /> : articles?.map(a =>
-                <Wrapper key={a.id}>
-                    <Link to={'/details/' + a.id}  >
+            <Wrapper >
+                {loading ? <Loader /> : articles?.map(a =>
+                    <Link to={'/details/' + a.id} key={a.id}>
                         <Article  {...a} />
-                    </Link>
-                    <Button>Update</Button>
-                    <Button>Delete</Button>
-                </Wrapper>)}
+                    </Link>)}
+            </Wrapper>
         </Main>
     );
 }
