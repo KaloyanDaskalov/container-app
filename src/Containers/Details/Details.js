@@ -26,7 +26,7 @@ export default function Details(props) {
 			.catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
 			.finally(() => dispatch({ type: 'END_LOADING' }));
 
-		props.history.push('/my-articles')
+		props.history.push('/my-articles');
 	}
 
 	useEffect(() => {
@@ -38,6 +38,28 @@ export default function Details(props) {
 			.catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
 			.finally(() => dispatch({ type: 'END_LOADING' }));
 	}, [dispatch, props.match.params.id]);
+
+	const likeHandler = () => {
+
+		dispatch({ type: 'START_LOADING' });
+
+		const likes = { [user.uid]: user.uid, ...article.likes }
+
+		fetch(`https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/${props.match.params.id}.json`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ likes })
+		})
+			.then(res => res.json())
+			.then(_ => {
+				dispatch({ type: 'SUCCESS', success: `Success! You liked ${article.title} article` });
+				setArticle({ ...article, likes });
+			})
+			.catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to update' }))
+			.finally(() => dispatch({ type: 'END_LOADING' }));
+	};
 
 	let userButtons = (
 		<>
@@ -54,8 +76,9 @@ export default function Details(props) {
 		</>
 	);
 
-	if (user.uid !== article?.userId) {
-		userButtons = <Button>Like</Button>
+	if (article && article.userId !== user.uid) {
+		const isDisabled = article.likes.hasOwnProperty(user.uid);
+		userButtons = <Button clicked={likeHandler} attributes={{ disabled: isDisabled }}>Like</Button>
 	}
 
 	return (

@@ -45,7 +45,7 @@ export default function Create() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options) })
+            body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
         })
             .then(res => res.json())
             .then(_ =>

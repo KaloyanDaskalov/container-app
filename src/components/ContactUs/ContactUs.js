@@ -27,11 +27,11 @@ export default function ContactUs() {
         }
 
         if (!checkLength(2, 50, name.length)) {
-            return dispatch({ type: 'NAME_ERROR', err: 'Name must at least 2 characters long' });
+            return dispatch({ type: 'NAME_ERROR', err: 'Name must be at least 2 characters long' });
         }
 
         if (!checkLength(10, 200, communication.length)) {
-            return dispatch({ type: 'TITLE_ERROR', err: 'Description must 10 to 200 characters long' });
+            return dispatch({ type: 'TITLE_ERROR', err: 'Communication must 10 to 200 characters long' });
         }
 
         dispatch({ type: 'START_LOADING' });
@@ -44,7 +44,7 @@ export default function ContactUs() {
             body: JSON.stringify({ name, email, communication })
         })
             .then(res => res.json())
-            .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send, wait for email' }))
+            .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' }))
             .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to send' }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
 

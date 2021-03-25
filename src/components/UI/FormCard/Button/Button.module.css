@@ -26,3 +26,8 @@
 .border {
   border-color: var(--cadet);
 }
+
+.btn:disabled {
+  color: var(--magnolia);
+  background-color: #ddd;
+}

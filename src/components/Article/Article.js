@@ -1,8 +1,12 @@
+import { FaThumbsUp } from 'react-icons/fa';
 import image from '../../assets/images/pexels-pixabay-163726.jpg'
 
 import classes from './Article.module.css';
 
-export default function Article({ imageUrl = '', title = '', author = '', date = '', description = '', detailedView = false }) {
+export default function Article({ imageUrl = '', title = '', author = '', date = '', description = '', detailedView = false, likes = {} }) {
+
+	const likeCount = Object.keys(likes).length - 1;
+
 	return (
 		<article className={detailedView ? classes.detailed : classes.article}>
 			<figure>
@@ -20,6 +24,12 @@ export default function Article({ imageUrl = '', title = '', author = '', date =
 					<time className={classes.textTime}>on <span className={classes.bold}>{date}</span></time>
 				</header>
 				<p>{description}</p>
+				<div className={classes.likes}>
+					<FaThumbsUp className={classes.icon} />
+					<span className={classes.count}>
+						{likeCount}
+					</span>
+				</div>
 			</article>
 		</article>
 	);

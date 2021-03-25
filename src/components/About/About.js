@@ -12,8 +12,8 @@ class About extends Component {
             <FormCard addClass='wide'>
                 <Title addClass='mb'>About Us</Title>
                 <Message addClass='mb'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis a odit, temporibus ullam vero suscipit eum eveniet veniam nobis quisquam pariatur, corporis quod adipisci, aut delectus. Voluptates rem nulla quidem commodi fuga unde minima, laboriosam, id repellendus quibusdam amet vero qui illo hic voluptas vitae officiis velit dolorem excepturi dignissimos molestias ullam! Eius, sapiente pariatur. Tempore at, laudantium consequuntur magni similique possimus perferendis. Incidunt suscipit similique ab excepturi voluptates, esse blanditiis numquam. Quas cupiditate id veniam iste ducimus nostrum autem amet, labore dolorem vitae corrupti aut tenetur aperiam. Nostrum blanditiis ad vitae accusamus assumenda possimus ducimus, quidem rem libero aperiam.
-                </Message>
+                    We strive to provide a platform for people to share - thoughts, feelings, experiences... everything and anything that comes to your mind.
+                 Other platforms with similar functions might be bigger but none of them would provide the freedom we are willing to provide our users. No posts or comments will ever be deleted unless you do it yourself. We are able to provide you with this freedom only because we consider people responsible for what they say and do.       </Message>
                 <NavLink href='/contact' addClass='btn'>Contact US</NavLink>
             </FormCard>
         );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useCommonState from '../../state/useCommonState';
 import { checkLength, isValidURL } from '../../Utility/index';
 
@@ -14,19 +14,22 @@ import Loader from '../../components/UI/Loader/Loader';
 export default function Update(props) {
 
     const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError, loading }, dispatch } = useCommonState();
-    const [article, setArticle] = useState(null);
 
     useEffect(() => {
         dispatch({ type: 'RESET_ERRORS' });
         dispatch({ type: 'START_LOADING' });
         fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/' + props.match.params.id + '.json')
             .then(res => res.json())
-            .then(data => setArticle(data))
+            .then(data => {
+                dispatch({ type: 'TITLE', value: data.title });
+                dispatch({ type: 'IMAGE_URL', value: data.imageUrl });
+                dispatch({ type: 'DESCRIPTION', value: data.description });
+            })
             .catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
     }, [dispatch, props.match.params.id]);
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
 
         dispatch({ type: 'RESET_ERRORS' });
@@ -45,17 +48,16 @@ export default function Update(props) {
 
         dispatch({ type: 'START_LOADING' });
 
-        fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles.json', {
-            method: 'PUT',
+        fetch(`https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/${props.match.params.id}.json`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ title, imageUrl, description })
         })
             .then(res => res.json())
-            .then(_ =>
-                dispatch({ type: 'SUCCESS', success: 'Success! Your article was created' }))
-            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to create' }))
+            .then(_ => props.history.push('/details/' + props.match.params.id))
+            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to update' }))
             .finally(() => dispatch({ type: 'END_LOADING' }));
     };
 
@@ -68,7 +70,7 @@ export default function Update(props) {
             <Input
                 attributes={{
                     placeholder: 'Title', type: 'text', required: true,
-                    value: article?.title
+                    value: title
                 }}
                 getValue={(e) => inputHandler(e)}
                 showError={titleError}
@@ -76,7 +78,7 @@ export default function Update(props) {
             <Input
                 attributes={{
                     placeholder: 'Image URL', type: 'text', required: true,
-                    value: article?.imageUrl
+                    value: imageUrl
                 }}
                 getValue={(e) => inputHandler(e)}
                 showError={urlError}
@@ -84,7 +86,7 @@ export default function Update(props) {
             <TextArea
                 attributes={{
                     placeholder: 'Description', type: 'text', required: true,
-                    value: article?.description
+                    value: description
                 }}
                 getValue={(e) => inputHandler(e)}
                 showError={descriptionError}

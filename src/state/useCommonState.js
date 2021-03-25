@@ -35,7 +35,7 @@ function reducer(state, action) {
         case 'ASYNC_ERROR':
             return updateObject(state, { error: true, message: action.err });
         case 'CONFIRM_PASSWORD_ERROR':
-            return updateObject(state, { error: true, message: 'Confirm password don\'t match', confirmPasswordError: true });
+            return updateObject(state, { error: true, message: 'Password confirmation invalid', confirmPasswordError: true });
         case 'START_LOADING':
             return updateObject(state, { loading: true });
         case 'END_LOADING':
