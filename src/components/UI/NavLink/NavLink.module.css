@@ -37,3 +37,10 @@
 .nested:hover {
   transform: translateY(-4px);
 }
+
+.side {
+  padding: 2rem 5rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--crayola);
+  display: block;
+}

@@ -1,4 +1,5 @@
-import { useAuth } from '../../state/Auth'
+import { useState } from 'react';
+import { useAuth } from '../../state/Auth';
 
 import logo from '../../assets/logo/logo.svg';
 import Wrapper from '../../components/Wrapper/Wrapper';
@@ -25,15 +26,24 @@ const registered = [
 
 export default function Navigation() {
 
+    const [toggle, setToggle] = useState(false);
     const { user } = useAuth();
-    let links = null;
+    let links = unRegistered;
+    const hamburgerClasses = [classes.hamburger];
+    const sidebarClasses = [classes.sidebar];
+
+    const toggleHandler = () => {
+        setToggle(!toggle);
+    };
 
     if (user) {
         links = registered;
-    } else {
-        links = unRegistered;
     }
 
+    if (toggle) {
+        hamburgerClasses.push(classes.open);
+        sidebarClasses.push(classes.show);
+    }
     return (
         <header className={classes.header}>
             <Wrapper addClass='flex'>
@@ -46,13 +56,27 @@ export default function Navigation() {
                             links.map(l => {
                                 return (
                                     <li key={l.name}>
-                                        <NavLink href={l.path} addClass={'link'}>{l.name}</NavLink>
+                                        <NavLink href={l.path} addClass='link'>{l.name}</NavLink>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                    <ul className={sidebarClasses.join(' ')}>
+                        {
+                            links.map(l => {
+                                return (
+                                    <li key={l.name}>
+                                        <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
                                     </li>
                                 );
                             })
                         }
                     </ul>
                 </nav>
+                <div className={classes.menu} onClick={toggleHandler}>
+                    <div className={hamburgerClasses.join(' ')}></div>
+                </div>
             </Wrapper>
             <Separator />
         </header>

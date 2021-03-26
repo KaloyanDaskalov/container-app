@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './hoc/PrivateRoute';
 import PublicRoute from './hoc/PublicRoute';
@@ -17,7 +17,6 @@ import Create from './Containers/Create/Create';
 import Details from './Containers/Details/Details';
 import MyArticles from './Containers/MyArticles/MyArticles';
 import Update from './Containers/Update/Update';
-// import Loader from './components/UI/Loader/Loader';
 
 function App() {
   return (
@@ -36,6 +35,7 @@ function App() {
         <PublicRoute path='/forgot-password' component={ForgotPassword} />
         <Route path='/about' component={About} />
         <Route path='/contact' component={ContactUs} />
+        <Redirect from='/' to='/' />
       </Switch>
       <Footer />
     </>
