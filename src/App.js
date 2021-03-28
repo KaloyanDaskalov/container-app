@@ -11,7 +11,7 @@ import ForgotPassword from './components/Forms/ForgotPassword';
 import SignUp from './components/Forms/SignUp';
 import Home from './Containers/Home/Home';
 import About from './components/About/About';
-import ContactUs from './components/ContactUs/ContactUs';
+import ContactUs from './Containers/ContactUs/ContactUs';
 import Profile from './components/Profile/Profile';
 import Create from './Containers/Create/Create';
 import Details from './Containers/Details/Details';

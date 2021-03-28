@@ -8,8 +8,8 @@ import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMess
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
-import TextArea from '../UI/FormCard/TextArea/TextArea';
-import Loader from '../UI/Loader/Loader';
+import TextArea from '../../components/UI/FormCard/TextArea/TextArea';
+import Loader from '../../components/UI/Loader/Loader';
 import { MdEmail, MdPhone, MdMap } from "react-icons/md";
 
 import classes from './ContactUs.module.css';

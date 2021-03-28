@@ -10,6 +10,7 @@ import Title from '../../components/UI/FormCard/Title/Title';
 import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage';
 import Article from '../../components/Article/Article';
 import Loader from '../../components/UI/Loader/Loader';
+import WeatherWidget from '../WeatherWidget/WeatherWidget';
 
 import classes from './Home.module.css';
 
@@ -48,6 +49,7 @@ export default function Home() {
             <Wrapper addClass='card'>
                 <Title addClass='crayola'>Hello {user.email}</Title>
                 <HiddenMessage showError={error}>{message}</HiddenMessage>
+                <WeatherWidget />
             </Wrapper>
             <Wrapper>
                 {loading ? <Loader /> : articles?.map(a =>

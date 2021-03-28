@@ -62,11 +62,11 @@ export default function Navigation() {
                             })
                         }
                     </ul>
-                    <ul className={sidebarClasses.join(' ')}>
+                    <ul className={sidebarClasses.join(' ')} onClick={toggleHandler}>
                         {
                             links.map(l => {
                                 return (
-                                    <li key={l.name}>
+                                    <li key={l.name} >
                                         <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
                                     </li>
                                 );
