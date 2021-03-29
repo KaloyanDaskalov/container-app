@@ -1,4 +1,5 @@
 import useCommonState from '../../state/useCommonState';
+import useFetch from '../../Hooks/useFetch';
 import { emailValidation, checkLength } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
@@ -16,6 +17,7 @@ import classes from './ContactUs.module.css';
 
 export default function ContactUs() {
     const { state: { email, error, message, emailError, loading, name, communication, passwordError: nameError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
+    const fetchData = useFetch();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -34,19 +36,32 @@ export default function ContactUs() {
             return dispatch({ type: 'TITLE_ERROR', err: 'Communication must 10 to 200 characters long' });
         }
 
-        dispatch({ type: 'START_LOADING' });
+        try {
+            dispatch({ type: 'START_LOADING' });
 
-        fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/messages.json', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, email, communication })
-        })
-            .then(res => res.json())
-            .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' }))
-            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to send' }))
-            .finally(() => dispatch({ type: 'END_LOADING' }));
+            await fetchData('messages.json', {
+                method: 'POST',
+                body: JSON.stringify({ name, email, communication })
+            });
+            dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' })
+        } catch (err) {
+            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) })
+        }
+        dispatch({ type: 'END_LOADING' });
+        // dispatch({ type: 'START_LOADING' });
+
+        // fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/messages.json', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({ name, email, communication })
+        // })
+        //     .then(res => res.json())
+        //     .then(data => console.log(data))
+        //     .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' }))
+        //     .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to send' }))
+        //     .finally(() => dispatch({ type: 'END_LOADING' }));
 
     };
 
