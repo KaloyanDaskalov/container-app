@@ -10,3 +10,8 @@
 .tl {
   text-align: left;
 }
+
+.weather {
+  color: var(--cadet);
+  font-weight: 700;
+}

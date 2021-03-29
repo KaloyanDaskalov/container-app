@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 
 import useGeoLocation from '../../Hooks/useGeoLocation';
 
+import Message from '../../components/UI/FormCard/Message/Message';
+import Weather from '../../components/Widgets/Weather';
+
+const options = { month: 'long', day: 'numeric', year: 'numeric' }
 
 export default function WeatherWidget() {
     const [conditions, setConditions] = useState(null);
@@ -16,5 +20,15 @@ export default function WeatherWidget() {
         }
     }, [query, lat, lon])
 
-    return (<div>{conditions ? JSON.stringify(conditions, null, 2) : null}</div>);
+    const date = new Date().toLocaleDateString('en-US', options);
+
+    return (
+        <Message addClass='mb weather'>
+            {date}
+            {conditions ?
+                <Weather image={conditions.weather[0].icon}>
+                    {conditions.weather[0].main}/{conditions.weather[0].description} {conditions.main.temp}
+                </Weather> : null}
+        </Message>
+    );
 }

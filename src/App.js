@@ -1,3 +1,5 @@
+import { Suspense, lazy } from 'react';
+
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './hoc/PrivateRoute';
@@ -7,16 +9,20 @@ import Hero from './components/Hero/Hero';
 import Navigation from './Containers/Navigation/Navigation';
 import Footer from './components/Footer/Footer';
 import Login from './components/Forms/Login';
-import ForgotPassword from './components/Forms/ForgotPassword';
 import SignUp from './components/Forms/SignUp';
 import Home from './Containers/Home/Home';
-import About from './components/About/About';
-import ContactUs from './Containers/ContactUs/ContactUs';
 import Profile from './components/Profile/Profile';
 import Create from './Containers/Create/Create';
 import Details from './Containers/Details/Details';
 import MyArticles from './Containers/MyArticles/MyArticles';
 import Update from './Containers/Update/Update';
+import Loader from './components/UI/Loader/Loader';
+// import ForgotPassword from './components/Forms/ForgotPassword';
+// import ContactUs from './Containers/ContactUs/ContactUs';
+// import About from './components/About/About';
+const ForgotPassword = lazy(() => import('./components/Forms/ForgotPassword'));
+const ContactUs = lazy(() => import('./Containers/ContactUs/ContactUs'));
+const About = lazy(() => import('./components/About/About'));
 
 function App() {
   return (
@@ -32,9 +38,11 @@ function App() {
         <PublicRoute path='/hero' component={Hero} />
         <PublicRoute path='/login' component={Login} />
         <PublicRoute path='/signup' component={SignUp} />
-        <PublicRoute path='/forgot-password' component={ForgotPassword} />
-        <Route path='/about' component={About} />
-        <Route path='/contact' component={ContactUs} />
+        <Suspense fallback={<Loader />}>
+          <PublicRoute path='/forgot-password' component={ForgotPassword} />
+          <Route path='/about' component={About} />
+          <Route path='/contact' component={ContactUs} />
+        </Suspense>
         <Redirect from='/' to='/' />
       </Switch>
       <Footer />
