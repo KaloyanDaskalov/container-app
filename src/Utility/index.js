@@ -25,3 +25,17 @@ export function isEqual(a, b) {
 export function isValidURL(string) {
     return patternUrl.test(string);
 }
+
+export const converter = (object = {}) => {
+
+    const arrayOfArticles = [];
+
+    for (const key in object) {
+        if (Object.hasOwnProperty.call(object, key)) {
+            const slicedText = { description: object[key].description.slice(0, 49) + '...' }
+            arrayOfArticles.push({ id: key, ...object[key], ...slicedText });
+        }
+    }
+
+    return arrayOfArticles;
+};

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { updateObject } from '../Utility/index';
 
 const mainUrl = 'https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/';
@@ -10,7 +11,7 @@ const mainQuery = {
 
 export default function useFetch() {
 
-	const fetchData = (url, query = {}) => {
+	const fetchData = useCallback((url, query = {}) => {
 		return fetch(mainUrl + url, updateObject(mainQuery, query))
 			.then(prom => {
 				if (!prom.ok) {
@@ -19,7 +20,7 @@ export default function useFetch() {
 				return prom;
 			})
 			.then(req => req.json());
-	};
+	}, []);
 
 	return fetchData;
 }

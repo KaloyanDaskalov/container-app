@@ -1,75 +1,86 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+
+import useFetch from '../../Hooks/useFetch';
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
 
 import Main from '../../components/Main/Main';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage'
+import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMessage';
 import Article from '../../components/Article/Article';
 import Loader from '../../components/UI/Loader/Loader';
 import Button from '../../components/UI/FormCard/Button/Button';
 import Buttons from '../../components/UI/Buttons/Buttons';
-// import classes from './Details.module.css';
 
 export default function Details(props) {
 
 	const { user } = useAuth();
-	const { error, message, loading, dispatch } = useCommonState();
+	const { state: { error, message, loading }, dispatch } = useCommonState();
 	const [article, setArticle] = useState(null);
+	const fetchData = useFetch();
+	const currentId = props.match.params.id;
 
-	const deleteHandler = (id) => {
+	const getData = useCallback(() => {
 		dispatch({ type: 'RESET_ERRORS' });
 		dispatch({ type: 'START_LOADING' });
-		fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/' + id + '.json', { method: 'DELETE' })
-			.then(res => res.json())
-			.then(data => setArticle(data))
-			.catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
-			.finally(() => dispatch({ type: 'END_LOADING' }));
 
-		props.history.push('/my-articles');
-	}
+		fetchData(`articles/${currentId}.json`)
+			.then(setArticle)
+			.catch((err) => dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) }));
+
+		dispatch({ type: 'END_LOADING' });
+	}, [dispatch, fetchData, currentId]);
 
 	useEffect(() => {
-		dispatch({ type: 'RESET_ERRORS' });
-		dispatch({ type: 'START_LOADING' });
-		fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/' + props.match.params.id + '.json')
-			.then(res => res.json())
-			.then(data => setArticle(data))
-			.catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
-			.finally(() => dispatch({ type: 'END_LOADING' }));
-	}, [dispatch, props.match.params.id]);
+		getData()
+	}, [getData]);
 
-	const likeHandler = () => {
+	const deleteHandler = async (id) => {
+		dispatch({ type: 'RESET_ERRORS' });
+
+		try {
+			dispatch({ type: 'START_LOADING' });
+			await fetchData(`articles/${id}.json`, { method: 'DELETE' });
+			props.history.push('/my-articles');
+		} catch (err) {
+			dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
+		}
+
+		dispatch({ type: 'END_LOADING' });
+	}
+
+	const likeHandler = async () => {
 
 		dispatch({ type: 'START_LOADING' });
 
 		const likes = { [user.uid]: user.uid, ...article.likes }
 
-		fetch(`https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/${props.match.params.id}.json`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ likes })
-		})
-			.then(res => res.json())
-			.then(_ => {
-				dispatch({ type: 'SUCCESS', success: `Success! You liked ${article.title} article` });
-				setArticle({ ...article, likes });
-			})
-			.catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to update' }))
-			.finally(() => dispatch({ type: 'END_LOADING' }));
+		try {
+			dispatch({ type: 'START_LOADING' });
+
+			const response = await fetchData(`articles/${currentId}.json`, {
+				method: 'PATCH',
+				body: JSON.stringify({ likes })
+			});
+
+			setArticle({ ...article, likes: response.likes });
+			dispatch({ type: 'SUCCESS', success: `Success! You liked ${article.title}` });
+		} catch (err) {
+			dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
+		}
+
+		dispatch({ type: 'END_LOADING' });
 	};
 
 	let userButtons = (
 		<>
 			<Button
-				clicked={() => props.history.push('/update/' + props.match.params.id)}
+				clicked={() => props.history.push('/update/' + currentId)}
 				addClass='border' >
 				Update
 			</Button>
 			<Button
-				clicked={() => deleteHandler(props.match.params.id)}
+				clicked={() => deleteHandler(currentId)}
 				addClass='border' >
 				Delete
 			</Button>

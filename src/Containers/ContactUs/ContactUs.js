@@ -45,24 +45,10 @@ export default function ContactUs() {
             });
             dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' })
         } catch (err) {
-            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) })
+            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
         }
+
         dispatch({ type: 'END_LOADING' });
-        // dispatch({ type: 'START_LOADING' });
-
-        // fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/messages.json', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ name, email, communication })
-        // })
-        //     .then(res => res.json())
-        //     .then(data => console.log(data))
-        //     .then(_ => dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' }))
-        //     .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to send' }))
-        //     .finally(() => dispatch({ type: 'END_LOADING' }));
-
     };
 
     const inputHandler = (e) => {
