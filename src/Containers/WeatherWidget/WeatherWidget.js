@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import useGeoLocation from '../../Hooks/useGeoLocation';
 
 import Message from '../../components/UI/FormCard/Message/Message';
-import Weather from '../../components/Widgets/Weather';
 
-const options = { month: 'long', day: 'numeric', year: 'numeric' }
+const options = { month: 'long', day: 'numeric', year: 'numeric' };
+const imgStyles = { display: 'inline-block', width: 'auto', verticalAlign: 'middle' };
 
 export default function WeatherWidget() {
     const [conditions, setConditions] = useState(null);
@@ -13,7 +13,7 @@ export default function WeatherWidget() {
 
     useEffect(() => {
         if (query === true && lat !== '') {
-            fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=555ca0b99a84eb70b96f775092a385b5`)
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=555ca0b99a84eb70b96f775092a385b5`)
                 .then(res => res.json())
                 .then(data => setConditions(data))
                 .catch(console.log);
@@ -26,9 +26,14 @@ export default function WeatherWidget() {
         <Message addClass='mb weather'>
             {date}
             {conditions ?
-                <Weather image={conditions.weather[0].icon}>
-                    {conditions.weather[0].main}/{conditions.weather[0].description} {conditions.main.temp}
-                </Weather> : null}
+                <span>
+                    <img
+                        src={`https://openweathermap.org/img/wn/${conditions.weather[0].icon}@2x.png`}
+                        alt="weather ico"
+                        style={imgStyles}
+                    />
+                    {conditions.weather[0].main}/{conditions.weather[0].description} {conditions.main.temp.toFixed(1)} &#x2103;
+            </span> : null}
         </Message>
     );
 }

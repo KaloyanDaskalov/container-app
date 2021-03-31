@@ -16,6 +16,7 @@ const unRegistered = [
 ];
 
 const registered = [
+    { name: 'HOME', path: '/' },
     { name: 'CREATE', path: '/create' },
     { name: 'MY ARTICLES', path: '/my-articles' },
     { name: 'PROFILE', path: '/profile' },

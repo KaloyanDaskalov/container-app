@@ -1,5 +1,6 @@
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
+import useFetch from '../../Hooks/useFetch';
 import { checkLength, isValidURL } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
@@ -16,6 +17,7 @@ const options = { month: 'long', day: 'numeric', year: 'numeric' }
 export default function Create() {
 
     const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError, loading }, dispatch } = useCommonState();
+    const fetchData = useFetch();
 
     const { user } = useAuth();
 
@@ -40,18 +42,20 @@ export default function Create() {
 
         const date = new Date();
 
-        fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles.json', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
-        })
-            .then(res => res.json())
-            .then(_ =>
-                dispatch({ type: 'SUCCESS', success: 'Success! Your article was created' }))
-            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to create' }))
-            .finally(() => dispatch({ type: 'END_LOADING' }));
+        try {
+            dispatch({ type: 'START_LOADING' });
+            await fetchData(`articles.json`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
+                }
+            );
+            dispatch({ type: 'SUCCESS', success: 'Success! Your article was created' });
+        } catch (err) {
+            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
+        }
+
+        dispatch({ type: 'END_LOADING' });
     };
 
     const inputHandler = (e) => {

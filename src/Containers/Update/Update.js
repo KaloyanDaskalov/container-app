@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import useCommonState from '../../state/useCommonState';
+import useFetch from '../../Hooks/useFetch';
 import { checkLength, isValidURL } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
@@ -14,22 +15,29 @@ import Loader from '../../components/UI/Loader/Loader';
 export default function Update(props) {
 
     const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError, loading }, dispatch } = useCommonState();
+    const fetchData = useFetch();
+    const currentId = props.match.params.id;
 
-    useEffect(() => {
+    const getData = useCallback(() => {
         dispatch({ type: 'RESET_ERRORS' });
         dispatch({ type: 'START_LOADING' });
-        fetch('https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/' + props.match.params.id + '.json')
-            .then(res => res.json())
+
+        fetchData(`articles/${currentId}.json`)
             .then(data => {
                 dispatch({ type: 'TITLE', value: data.title });
                 dispatch({ type: 'IMAGE_URL', value: data.imageUrl });
                 dispatch({ type: 'DESCRIPTION', value: data.description });
             })
-            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: (err.message || 'Failed to load') }))
-            .finally(() => dispatch({ type: 'END_LOADING' }));
-    }, [dispatch, props.match.params.id]);
+            .catch((err) => dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) }));
 
-    const submitHandler = (e) => {
+        dispatch({ type: 'END_LOADING' });
+    }, [dispatch, fetchData, currentId]);
+
+    useEffect(() => {
+        getData();
+    }, [getData]);
+
+    const submitHandler = async (e) => {
         e.preventDefault();
 
         dispatch({ type: 'RESET_ERRORS' });
@@ -46,19 +54,20 @@ export default function Update(props) {
             return dispatch({ type: 'DESCRIPTION_ERROR', err: 'Description must 50 to 1000 characters long' });
         }
 
-        dispatch({ type: 'START_LOADING' });
+        try {
+            dispatch({ type: 'START_LOADING' });
 
-        fetch(`https://containers-app-default-rtdb.europe-west1.firebasedatabase.app/articles/${props.match.params.id}.json`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, imageUrl, description })
-        })
-            .then(res => res.json())
-            .then(_ => props.history.push('/details/' + props.match.params.id))
-            .catch(err => dispatch({ type: 'ASYNC_ERROR', err: err.message || 'Failed to update' }))
-            .finally(() => dispatch({ type: 'END_LOADING' }));
+            await fetchData(`articles/${currentId}.json`, {
+                method: 'PATCH',
+                body: JSON.stringify({ title, imageUrl, description })
+            });
+
+            props.history.push(`/details/${currentId}`);
+        } catch (err) {
+            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
+        }
+
+        dispatch({ type: 'END_LOADING' });
     };
 
     const inputHandler = (e) => {
@@ -100,6 +109,7 @@ export default function Update(props) {
             <Title>Create Article</Title>
             <HiddenMessage showError={error}>{message}</HiddenMessage>
             {loading ? <Loader /> : updateForm}
+            <Button clicked={() => props.history.push(`/details/${currentId}`)}>Back</Button>
         </FormCard>
     );
 }
