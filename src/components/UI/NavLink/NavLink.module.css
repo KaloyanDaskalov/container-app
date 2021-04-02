@@ -1,7 +1,7 @@
 .reset {
   text-decoration: none;
   color: var(--crayola);
-  letter-spacing: 0.025rem;
+  letter-spacing: 0.05rem;
   display: inline-block;
 }
 
@@ -39,8 +39,8 @@
 }
 
 .side {
-  padding: 2rem 5rem;
-  font-weight: 700;
+  padding: 2rem 8rem;
+  font-weight: 900;
   border-bottom: 1px solid var(--crayola);
   display: block;
 }

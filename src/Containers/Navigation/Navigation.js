@@ -37,6 +37,10 @@ export default function Navigation() {
         setToggle(!toggle);
     };
 
+    const closeHandler = () => {
+        setToggle(false);
+    };
+
     if (user) {
         links = registered;
     }
@@ -48,7 +52,7 @@ export default function Navigation() {
     return (
         <header className={classes.header}>
             <Wrapper addClass='flex'>
-                <div className={classes.logo}>
+                <div className={classes.logo} onClick={closeHandler}>
                     <NavLink href='/' ><img src={logo} alt="logo" /></NavLink>
                 </div>
                 <nav>
@@ -63,7 +67,7 @@ export default function Navigation() {
                             })
                         }
                     </ul>
-                    <ul className={sidebarClasses.join(' ')} onClick={toggleHandler}>
+                    <ul className={sidebarClasses.join(' ')} onClick={closeHandler}>
                         {
                             links.map(l => {
                                 return (

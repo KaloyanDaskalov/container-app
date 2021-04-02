@@ -1,3 +1,19 @@
+<h1>About US</h1>
+
+We strive to provide a platform for people to share - thoughts, feelings, experiences... everything and anything that comes to your mind.
+Other platforms with similar functions might be bigger but none of them would provide the freedom we are willing to provide our users. No posts or comments will ever be deleted unless you do it yourself. We are able to provide you with this freedom only because we consider people responsible for what they say and do.
+
+<h3>Built With Create-react-app</h3>
+
+<h4>Project include:</h4>
+
+<ul>
+<li>HTML</li>
+<li>CSS</li>
+<li>React</li>
+<li>Firebase</li>
+</ul>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -39,32 +55,20 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+<h3>Getting Started</h3>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<ul>
+<li>git clone https://github.com/KaloyanDaskalov/container-app.git</li>
+<li>npm install</li>
+<li>npm start</li>
+<li>Enjoy</li>
+</ul>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<h3>License</h3>
 
-### Code Splitting
+Distributed under the MIT License. See LICENSE for more information.
+Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Kaloyan Daskalov - kdaskalov78@gmail.com
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Project Link: https://github.com/KaloyanDaskalov/container-app
