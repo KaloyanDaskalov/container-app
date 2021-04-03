@@ -30,9 +30,8 @@ export default function ForgotPassword() {
 			dispatch({ type: 'START_LOADING' });
 			await resetPassword(email);
 			dispatch({ type: 'SUCCESS', success: 'Success! Check your mailbox for further instructions' });
-			// history.push('/');
 		} catch (error) {
-			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to reset' });
+			dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to reset') });
 		}
 
 		dispatch({ type: 'END_LOADING' });

@@ -1,7 +1,7 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import useCommonState from '../../state/useCommonState';
 import useFetch from '../../Hooks/useFetch';
-import { checkLength, isValidURL } from '../../Utility/index';
+import { checkLength, isValidURL, setMessage } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -14,30 +14,21 @@ import Loader from '../../components/UI/Loader/Loader';
 
 export default function Update(props) {
 
-    const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError, loading }, dispatch } = useCommonState();
-    const fetchData = useFetch();
+    const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
+    const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage, fetchData } = useFetch();
     const currentId = props.match.params.id;
 
-    const getData = useCallback(() => {
-        dispatch({ type: 'RESET_ERRORS' });
-        dispatch({ type: 'START_LOADING' });
-
-        fetchData(`articles/${currentId}.json`)
-            .then(data => {
-                dispatch({ type: 'TITLE', value: data.title });
-                dispatch({ type: 'IMAGE_URL', value: data.imageUrl });
-                dispatch({ type: 'DESCRIPTION', value: data.description });
-            })
-            .catch((err) => dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) }));
-
-        dispatch({ type: 'END_LOADING' });
-    }, [dispatch, fetchData, currentId]);
+    useEffect(() => {
+        fetchQuery(`articles/${currentId}.json`);
+    }, [fetchQuery, currentId]);
 
     useEffect(() => {
-        getData();
-    }, [getData]);
+        if (fetchData) {
+            dispatch({ type: 'SET_UPDATE', ...fetchData });
+        }
+    }, [fetchData, dispatch])
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
 
         dispatch({ type: 'RESET_ERRORS' });
@@ -55,19 +46,14 @@ export default function Update(props) {
         }
 
         try {
-            dispatch({ type: 'START_LOADING' });
-
-            await fetchData(`articles/${currentId}.json`, {
+            fetchQuery(`articles/${currentId}.json`, {
                 method: 'PATCH',
                 body: JSON.stringify({ title, imageUrl, description })
             });
-
-            props.history.push(`/details/${currentId}`);
-        } catch (err) {
-            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
+        } finally {
+            if (!fetchError)
+                props.history.push(`/details/${currentId}`);
         }
-
-        dispatch({ type: 'END_LOADING' });
     };
 
     const inputHandler = (e) => {
@@ -107,8 +93,10 @@ export default function Update(props) {
     return (
         <FormCard addClass='wide'>
             <Title>Create Article</Title>
-            <HiddenMessage showError={error}>{message}</HiddenMessage>
-            {loading ? <Loader /> : updateForm}
+            <HiddenMessage showError={error || fetchError || fetchSuccess}>
+                {setMessage(error, fetchError, message, fetchErrorMessage, fetchSuccess, fetchSuccessMessage)}
+            </HiddenMessage>
+            {fetchLoading ? <Loader /> : updateForm}
             <Button clicked={() => props.history.push(`/details/${currentId}`)}>Back</Button>
         </FormCard>
     );

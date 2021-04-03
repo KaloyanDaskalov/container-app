@@ -39,7 +39,7 @@ export default function SignUp() {
 			dispatch({ type: 'START_LOADING' });
 			await signup(email, password);
 		} catch (error) {
-			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to create account' });
+			dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to create account') });
 		}
 		dispatch({ type: 'END_LOADING' });
 	};

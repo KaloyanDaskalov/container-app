@@ -60,6 +60,8 @@ function reducer(state, action) {
             return updateObject(state, { error: true, message: action.err, passwordError: true });
         case 'DESCRIPTION_ERROR':
             return updateObject(state, { error: true, message: action.err, confirmPasswordError: true });
+        case 'SET_UPDATE':
+            return updateObject(state, { imageUrl: action.imageUrl, description: action.description, title: action.title });
         default:
             throw new Error('Unhandled action' + action.type);
     }

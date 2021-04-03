@@ -31,7 +31,7 @@ export default function Profile() {
             await updateEmail(email);
             dispatch({ type: 'SUCCESS', success: 'Success! Logout and login with your new email' });
         } catch (error) {
-            dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to update' });
+            dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to update') });
         }
         dispatch({ type: 'END_LOADING' });
     };

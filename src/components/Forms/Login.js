@@ -34,7 +34,7 @@ export default function Login() {
 			dispatch({ type: 'START_LOADING' });
 			await login(email, password);
 		} catch (error) {
-			dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to login' });
+			dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to login') });
 		}
 
 		dispatch({ type: 'END_LOADING' });

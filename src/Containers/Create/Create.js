@@ -17,12 +17,10 @@ const options = { month: 'long', day: 'numeric', year: 'numeric' }
 export default function Create() {
 
     const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
-    const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage } = useFetch();
-
-
+    const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage } = useFetch();
     const { user } = useAuth();
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
 
         dispatch({ type: 'RESET_ERRORS' });
@@ -39,16 +37,12 @@ export default function Create() {
             return dispatch({ type: 'DESCRIPTION_ERROR', err: 'Description must 50 to 1000 characters long' });
         }
 
-        dispatch({ type: 'START_LOADING' });
-
         const date = new Date();
 
-        fetchQuery(`articles.json`,
-            {
-                method: 'POST',
-                body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
-            }
-        );
+        fetchQuery('articles.json', {
+            method: 'POST',
+            body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
+        }, 'Success! Your article is created');
     };
 
     const inputHandler = (e) => {
@@ -76,8 +70,8 @@ export default function Create() {
     return (
         <FormCard addClass='wide'>
             <Title>Create Article</Title>
-            <HiddenMessage showError={error || fetchError || fetchS}>
-                {setMessage(error, fetchError, message, fetchErrorMessage, 'Success! Your article was created')}
+            <HiddenMessage showError={error || fetchError || fetchSuccess}>
+                {setMessage(error, fetchError, message, fetchErrorMessage, fetchSuccess, fetchSuccessMessage)}
             </HiddenMessage>
             {fetchLoading ? <Loader /> : createForm}
         </FormCard>

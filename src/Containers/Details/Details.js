@@ -1,8 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
 
 import useFetch from '../../Hooks/useFetch';
 import { useAuth } from '../../state/Auth';
-import useCommonState from '../../state/useCommonState';
+import { setMessage } from '../../Utility/index';
 
 import Main from '../../components/Main/Main';
 import Wrapper from '../../components/Wrapper/Wrapper';
@@ -15,61 +15,31 @@ import Buttons from '../../components/UI/Buttons/Buttons';
 export default function Details(props) {
 
 	const { user } = useAuth();
-	const { state: { error, message, loading }, dispatch } = useCommonState();
-	const [article, setArticle] = useState(null);
-	const fetchData = useFetch();
+	const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage, fetchData } = useFetch();
 	const currentId = props.match.params.id;
 
-	const getData = useCallback(() => {
-		dispatch({ type: 'RESET_ERRORS' });
-		dispatch({ type: 'START_LOADING' });
-
-		fetchData(`articles/${currentId}.json`)
-			.then(setArticle)
-			.catch((err) => dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) }));
-
-		dispatch({ type: 'END_LOADING' });
-	}, [dispatch, fetchData, currentId]);
-
 	useEffect(() => {
-		getData()
-	}, [getData]);
+		fetchQuery(`articles/${currentId}.json`)
+	}, [fetchQuery, currentId]);
 
-	const deleteHandler = async (id) => {
-		dispatch({ type: 'RESET_ERRORS' });
-
+	const deleteHandler = (id) => {
 		try {
-			dispatch({ type: 'START_LOADING' });
-			await fetchData(`articles/${id}.json`, { method: 'DELETE' });
-			props.history.push('/my-articles');
-		} catch (err) {
-			dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
+			fetchQuery(`articles/${id}.json`, { method: 'DELETE' });
+		} finally {
+			if (!fetchError)
+				props.history.push('/my-articles');
 		}
-
-		dispatch({ type: 'END_LOADING' });
 	}
 
-	const likeHandler = async () => {
+	const likeHandler = () => {
 
-		dispatch({ type: 'START_LOADING' });
+		const likes = { [user.uid]: user.uid, ...fetchData.likes };
 
-		const likes = { [user.uid]: user.uid, ...article.likes }
-
-		try {
-			dispatch({ type: 'START_LOADING' });
-
-			const response = await fetchData(`articles/${currentId}.json`, {
-				method: 'PATCH',
-				body: JSON.stringify({ likes })
-			});
-
-			setArticle({ ...article, likes: response.likes });
-			dispatch({ type: 'SUCCESS', success: `Success! You liked ${article.title}` });
-		} catch (err) {
-			dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
-		}
-
-		dispatch({ type: 'END_LOADING' });
+		fetchQuery(`articles/${currentId}.json`, {
+			method: 'PUT',
+			body: JSON.stringify({ ...fetchData, likes })
+		},
+			`Success! You liked ${fetchData.title}`);
 	};
 
 	let userButtons = (
@@ -87,20 +57,22 @@ export default function Details(props) {
 		</>
 	);
 
-	if (article && article.userId !== user.uid) {
-		const isDisabled = article.likes.hasOwnProperty(user.uid);
+	if (fetchData && fetchData.userId !== user.uid) {
+		const isDisabled = fetchData.likes.hasOwnProperty(user.uid);
 		userButtons = <Button clicked={likeHandler} attributes={{ disabled: isDisabled }}>Like</Button>
 	}
 
 	return (
 		<Main>
 			<Wrapper addClass='card'>
-				<HiddenMessage showError={error}>{message}</HiddenMessage>
+				<HiddenMessage showError={fetchError || fetchSuccess}>
+					{setMessage(fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage)}
+				</HiddenMessage>
 			</Wrapper>
 			<Wrapper>
-				{loading ? <Loader /> : <Article {...article} detailedView={true} />}
+				{fetchLoading ? <Loader /> : <Article {...fetchData} detailedView={true} />}
 				<Buttons>
-					{userButtons}
+					{fetchLoading ? <Loader /> : userButtons}
 				</Buttons>
 				<Buttons>
 					<Button
