@@ -1,7 +1,7 @@
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
 import useFetch from '../../Hooks/useFetch';
-import { checkLength, isValidURL } from '../../Utility/index';
+import { checkLength, isValidURL, setMessage } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -16,8 +16,9 @@ const options = { month: 'long', day: 'numeric', year: 'numeric' }
 
 export default function Create() {
 
-    const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError, loading }, dispatch } = useCommonState();
-    const fetchData = useFetch();
+    const { state: { title, imageUrl, description, error, message, emailError: titleError, passwordError: urlError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
+    const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage } = useFetch();
+
 
     const { user } = useAuth();
 
@@ -42,20 +43,12 @@ export default function Create() {
 
         const date = new Date();
 
-        try {
-            dispatch({ type: 'START_LOADING' });
-            await fetchData(`articles.json`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
-                }
-            );
-            dispatch({ type: 'SUCCESS', success: 'Success! Your article was created' });
-        } catch (err) {
-            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
-        }
-
-        dispatch({ type: 'END_LOADING' });
+        fetchQuery(`articles.json`,
+            {
+                method: 'POST',
+                body: JSON.stringify({ title, imageUrl, description, author: user.email, userId: user.uid, date: date.toLocaleDateString('en-US', options), likes: { [user.uid]: user.uid } })
+            }
+        );
     };
 
     const inputHandler = (e) => {
@@ -83,8 +76,10 @@ export default function Create() {
     return (
         <FormCard addClass='wide'>
             <Title>Create Article</Title>
-            <HiddenMessage showError={error}>{message}</HiddenMessage>
-            {loading ? <Loader /> : createForm}
+            <HiddenMessage showError={error || fetchError || fetchS}>
+                {setMessage(error, fetchError, message, fetchErrorMessage, 'Success! Your article was created')}
+            </HiddenMessage>
+            {fetchLoading ? <Loader /> : createForm}
         </FormCard>
     );
 }

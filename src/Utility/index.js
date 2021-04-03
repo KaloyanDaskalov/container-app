@@ -10,11 +10,11 @@ export function actionType(type) {
     return type.toUpperCase().replace(/ /g, '_');
 }
 
-export function checkLength(min, max, length) {
+export function checkLength(min = 0, max = 1000, length = 0) {
     return (min <= length) && (length <= max);
 }
 
-export function updateObject(obj, props) {
+export function updateObject(obj = {}, props = {}) {
     return { ...obj, ...props };
 }
 
@@ -22,7 +22,7 @@ export function isEqual(a, b) {
     return a === b;
 }
 
-export function isValidURL(string) {
+export function isValidURL(string = '') {
     return patternUrl.test(string);
 }
 
@@ -38,4 +38,20 @@ export const converter = (object = {}) => {
     }
 
     return arrayOfArticles;
+};
+
+export const setMessage = (stateErr = false, fetchErr = false, stateMessage = 'State Message', fetchMessage = 'Fetch Message', fetchSuccess = false, fetchSuccessMessage = 'Success Message') => {
+    if (stateErr) {
+        return stateMessage;
+    }
+
+    if (fetchErr) {
+        return fetchMessage;
+    }
+
+    if (fetchSuccess) {
+        return fetchSuccessMessage;
+    }
+
+    return 'Message';
 };

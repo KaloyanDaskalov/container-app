@@ -1,6 +1,6 @@
 import useCommonState from '../../state/useCommonState';
 import useFetch from '../../Hooks/useFetch';
-import { emailValidation, checkLength } from '../../Utility/index';
+import { emailValidation, checkLength, setMessage } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -16,10 +16,10 @@ import { MdEmail, MdPhone, MdMap } from "react-icons/md";
 import classes from './ContactUs.module.css';
 
 export default function ContactUs() {
-    const { state: { email, error, message, emailError, loading, name, communication, passwordError: nameError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
-    const fetchData = useFetch();
+    const { state: { email, error, message, emailError, name, communication, passwordError: nameError, confirmPasswordError: descriptionError }, dispatch } = useCommonState();
+    const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage } = useFetch();
 
-    const submitHandler = async (e) => {
+    const submitHandler = e => {
         e.preventDefault();
 
         dispatch({ type: 'RESET_ERRORS' });
@@ -36,19 +36,10 @@ export default function ContactUs() {
             return dispatch({ type: 'TITLE_ERROR', err: 'Communication must 10 to 200 characters long' });
         }
 
-        try {
-            dispatch({ type: 'START_LOADING' });
-
-            await fetchData('messages.json', {
-                method: 'POST',
-                body: JSON.stringify({ name, email, communication })
-            });
-            dispatch({ type: 'SUCCESS', success: 'Success! Your message was send' })
-        } catch (err) {
-            dispatch({ type: 'ASYNC_ERROR', err: (err.message || err) });
-        }
-
-        dispatch({ type: 'END_LOADING' });
+        fetchQuery('messages.json', {
+            method: 'POST',
+            body: JSON.stringify({ name, email, communication })
+        }, 'Success, your message was send');
     };
 
     const inputHandler = (e) => {
@@ -79,11 +70,13 @@ export default function ContactUs() {
     return (
         <FormCard>
             <Title >Contact Us</Title>
-            <HiddenMessage showError={error}>{message}</HiddenMessage>
+            <HiddenMessage showError={error || fetchError || fetchSuccess}>
+                {setMessage(error, fetchError, message, fetchErrorMessage, fetchSuccess, fetchSuccessMessage)}
+            </HiddenMessage>
             <Message addClass='tl mb'><MdMap className={classes.icon} /> Sofia, Tsar Samuil 20 </Message>
             <Message addClass='tl mb'><MdEmail className={classes.icon} />some@mail.com</Message>
             <Message addClass='tl'><MdPhone className={classes.icon} />+359888222111</Message>
-            {loading ? <Loader /> : loginForm}
+            {fetchLoading ? <Loader /> : loginForm}
         </FormCard>
     );
 }
