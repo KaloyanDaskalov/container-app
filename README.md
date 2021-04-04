@@ -3,6 +3,10 @@
 We strive to provide a platform for people to share - thoughts, feelings, experiences... everything and anything that comes to your mind.
 Other platforms with similar functions might be bigger but none of them would provide the freedom we are willing to provide our users. No posts or comments will ever be deleted unless you do it yourself. We are able to provide you with this freedom only because we consider people responsible for what they say and do.
 
+## You can test the project on
+
+<a>https://kdev.bg</a>
+
 <h3>Built With Create-react-app</h3>
 
 <h4>Project include:</h4>
