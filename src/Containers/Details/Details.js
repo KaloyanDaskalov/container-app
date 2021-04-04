@@ -20,6 +20,7 @@ export default function Details(props) {
 
 	useEffect(() => {
 		fetchQuery(`articles/${currentId}.json`);
+		window.scrollTo(0, 0);
 
 		return () => queryDispatch({ type: 'RESET' });
 

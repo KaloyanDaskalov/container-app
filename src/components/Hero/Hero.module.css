@@ -28,3 +28,9 @@
 .red {
   color: var(--sienna);
 }
+
+@media only screen and (min-width: 500px) {
+  .title {
+    font-size: calc(1.85rem + 2vw);
+  }
+}

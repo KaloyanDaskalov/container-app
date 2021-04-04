@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../state/Auth';
 import useFetch from '../../Hooks/useFetch';
-import { converter } from '../../Utility/index';
+import { converter, helloTitle } from '../../Utility/index';
 
 import Main from '../../components/Main/Main';
 import Wrapper from '../../components/Wrapper/Wrapper';
@@ -23,12 +23,13 @@ export default function Home() {
 
     useEffect(() => {
         fetchQuery('articles.json');
+        window.scrollTo(0, 0);
     }, [fetchQuery]);
 
     return (
         <Main>
             <Wrapper addClass='card'>
-                <Title addClass='crayola'>Hello {user.email}</Title>
+                <Title addClass='crayola'>Hello {helloTitle(user.email)}</Title>
                 <HiddenMessage showError={fetchError}>{fetchErrorMessage}</HiddenMessage>
                 <WeatherWidget />
             </Wrapper>

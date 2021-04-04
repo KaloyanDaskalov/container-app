@@ -55,3 +55,7 @@ export const setMessage = (stateErr = false, fetchErr = false, stateMessage = 'S
 
     return 'Message';
 };
+
+export const helloTitle = (title = '') => {
+    return title.slice(0, title.indexOf('@'));
+};

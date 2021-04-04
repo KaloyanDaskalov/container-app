@@ -21,11 +21,11 @@ const initialState = {
 function reducer(state, action) {
     switch (actionType(action.type)) {
         case 'EMAIL':
-            return updateObject(state, { email: action.value });
+            return updateObject(state, { email: action.value.trim() });
         case 'PASSWORD':
-            return updateObject(state, { password: action.value });
+            return updateObject(state, { password: action.value.trim() });
         case 'CONFIRM_PASSWORD':
-            return updateObject(state, { confirmPassword: action.value });
+            return updateObject(state, { confirmPassword: action.value.trim() });
         case 'RESET_ERRORS':
             return updateObject(state, { error: false, emailError: false, passwordError: false, confirmPasswordError: false });
         case 'EMAIL_ERROR':
@@ -43,15 +43,15 @@ function reducer(state, action) {
         case 'SUCCESS':
             return updateObject(state, { error: true, message: action.success });
         case 'NAME':
-            return updateObject(state, { name: action.value });
+            return updateObject(state, { name: action.value.trim() });
         case 'COMMUNICATION':
             return updateObject(state, { communication: action.value });
         case 'TITLE':
-            return updateObject(state, { title: action.value });
+            return updateObject(state, { title: action.value.trim() });
         case 'IMAGE_URL':
-            return updateObject(state, { imageUrl: action.value });
+            return updateObject(state, { imageUrl: action.value.trim() });
         case 'DESCRIPTION':
-            return updateObject(state, { description: action.value });
+            return updateObject(state, { description: action.value.trim() });
         case 'TITLE_ERROR':
             return updateObject(state, { error: true, message: action.err, emailError: true });
         case 'IMAGE_ERROR':

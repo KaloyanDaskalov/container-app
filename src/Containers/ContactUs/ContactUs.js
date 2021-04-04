@@ -74,7 +74,7 @@ export default function ContactUs() {
                 {setMessage(error, fetchError, message, fetchErrorMessage, fetchSuccess, fetchSuccessMessage)}
             </HiddenMessage>
             <Message addClass='tl mb'><MdMap className={classes.icon} /> Sofia, Tsar Samuil 20 </Message>
-            <Message addClass='tl mb'><MdEmail className={classes.icon} />some@mail.com</Message>
+            <Message addClass='tl mb'><MdEmail className={classes.icon} />containers@mail.com</Message>
             <Message addClass='tl'><MdPhone className={classes.icon} />+359888222111</Message>
             {fetchLoading ? <Loader /> : loginForm}
         </FormCard>
