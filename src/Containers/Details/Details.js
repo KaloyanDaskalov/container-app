@@ -15,24 +15,21 @@ import Buttons from '../../components/UI/Buttons/Buttons';
 export default function Details(props) {
 
 	const { user } = useAuth();
-	const { fetchQuery, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage, fetchData } = useFetch();
+	const { fetchQuery, queryDispatch, fetchLoading, fetchError, fetchSuccess, fetchErrorMessage, fetchSuccessMessage, fetchData } = useFetch();
 	const currentId = props.match.params.id;
 
 	useEffect(() => {
-		fetchQuery(`articles/${currentId}.json`)
-	}, [fetchQuery, currentId]);
+		fetchQuery(`articles/${currentId}.json`);
+
+		return () => queryDispatch({ type: 'RESET' });
+
+	}, [fetchQuery, currentId, queryDispatch]);
 
 	const deleteHandler = (id) => {
-		try {
-			fetchQuery(`articles/${id}.json`, { method: 'DELETE' });
-		} finally {
-			if (!fetchError)
-				props.history.push('/my-articles');
-		}
+		fetchQuery(`articles/${id}.json`, { method: 'DELETE' }, '', '/my-articles');
 	}
 
 	const likeHandler = () => {
-
 		const likes = { [user.uid]: user.uid, ...fetchData.likes };
 
 		fetchQuery(`articles/${currentId}.json`, {

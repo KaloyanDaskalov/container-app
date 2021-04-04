@@ -26,6 +26,8 @@ export default function Update(props) {
         if (fetchData) {
             dispatch({ type: 'SET_UPDATE', ...fetchData });
         }
+
+        return () => dispatch({ type: 'SET_UPDATE', imageUrl: '', description: '', title: '' });
     }, [fetchData, dispatch])
 
     const submitHandler = (e) => {
@@ -45,15 +47,10 @@ export default function Update(props) {
             return dispatch({ type: 'DESCRIPTION_ERROR', err: 'Description must 50 to 1000 characters long' });
         }
 
-        try {
-            fetchQuery(`articles/${currentId}.json`, {
-                method: 'PATCH',
-                body: JSON.stringify({ title, imageUrl, description })
-            });
-        } finally {
-            if (!fetchError)
-                props.history.push(`/details/${currentId}`);
-        }
+        fetchQuery(`articles/${currentId}.json`, {
+            method: 'PATCH',
+            body: JSON.stringify({ title, imageUrl, description })
+        }, '', `/details/${currentId}`);
     };
 
     const inputHandler = (e) => {

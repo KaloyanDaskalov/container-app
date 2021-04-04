@@ -18,6 +18,7 @@ export default function WeatherWidget() {
                 .then(data => setConditions(data))
                 .catch(console.log);
         }
+        return () => setConditions(null);
     }, [query, lat, lon])
 
     const date = new Date().toLocaleDateString('en-US', options);
