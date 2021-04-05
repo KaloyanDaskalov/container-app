@@ -33,8 +33,9 @@ export default function WeatherWidget() {
                         alt="weather ico"
                         style={imgStyles}
                     />
-                    {conditions.weather[0].main}/{conditions.weather[0].description} {conditions.main.temp.toFixed(1)} &#x2103;
-            </span> : null}
+                    {conditions.weather[0].description} {conditions.main.temp.toFixed(1)} &#x2103;
+            </span>
+                : null}
         </Message>
     );
 }
