@@ -78,17 +78,19 @@ export default function Navigation() {
                 </Wrapper>
                 <Separator />
             </header>
-            <ul className={sidebarClasses.join(' ')} onClick={closeHandler}>
-                {
-                    links.map(l => {
-                        return (
-                            <li key={l.name} >
-                                <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
-                            </li>
-                        );
-                    })
-                }
-            </ul>
+            <nav>
+                <ul className={sidebarClasses.join(' ')} onClick={closeHandler}>
+                    {
+                        links.map(l => {
+                            return (
+                                <li key={l.name} >
+                                    <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </nav>
         </>
     );
 }
