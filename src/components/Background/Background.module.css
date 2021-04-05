@@ -1,5 +1,5 @@
 .Container {
-  min-height: max(700px, calc(100vh - 108.8px));
+  min-height: max(400px, calc(100vh - 108.8px));
   background: url("../../assets/images/pexels-pixabay-163811.jpg") center/cover
     no-repeat;
   padding: 5rem 0 1rem;

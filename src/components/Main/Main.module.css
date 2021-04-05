@@ -1,5 +1,5 @@
 .main {
-  min-height: max(700px, 100vh);
+  min-height: max(400px, 100vh);
   background-color: var(--magnolia);
   padding: 6rem 0 1rem;
 }

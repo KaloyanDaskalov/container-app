@@ -34,6 +34,9 @@ export default function Navigation() {
     const sidebarClasses = [classes.sidebar];
 
     const toggleHandler = () => {
+        if (toggle === false) {
+            window.scrollTo(0, 0);
+        }
         setToggle(!toggle);
     };
 
@@ -50,40 +53,42 @@ export default function Navigation() {
         sidebarClasses.push(classes.show);
     }
     return (
-        <header className={classes.header}>
-            <Wrapper addClass='flex'>
-                <div className={classes.logo} onClick={closeHandler}>
-                    <NavLink href='/' ><img src={logo} alt="logo" /></NavLink>
-                </div>
-                <nav>
-                    <ul className={classes.navbar}>
-                        {
-                            links.map(l => {
-                                return (
-                                    <li key={l.name}>
-                                        <NavLink href={l.path} addClass='link'>{l.name}</NavLink>
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                    <ul className={sidebarClasses.join(' ')} onClick={closeHandler}>
-                        {
-                            links.map(l => {
-                                return (
-                                    <li key={l.name} >
-                                        <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                </nav>
-                <div className={classes.menu} onClick={toggleHandler}>
-                    <div className={hamburgerClasses.join(' ')}></div>
-                </div>
-            </Wrapper>
-            <Separator />
-        </header>
+        <>
+            <header className={classes.header}>
+                <Wrapper addClass='flex'>
+                    <div className={classes.logo} onClick={closeHandler}>
+                        <NavLink href='/' ><img src={logo} alt="logo" /></NavLink>
+                    </div>
+                    <nav>
+                        <ul className={classes.navbar}>
+                            {
+                                links.map(l => {
+                                    return (
+                                        <li key={l.name}>
+                                            <NavLink href={l.path} addClass='link'>{l.name}</NavLink>
+                                        </li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </nav>
+                    <div className={classes.menu} onClick={toggleHandler}>
+                        <div className={hamburgerClasses.join(' ')}></div>
+                    </div>
+                </Wrapper>
+                <Separator />
+            </header>
+            <ul className={sidebarClasses.join(' ')} onClick={closeHandler}>
+                {
+                    links.map(l => {
+                        return (
+                            <li key={l.name} >
+                                <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        </>
     );
 }
