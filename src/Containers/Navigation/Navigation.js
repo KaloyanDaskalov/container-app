@@ -54,12 +54,28 @@ export default function Navigation() {
     }
     return (
         <>
+            <nav className={sidebarClasses.join(' ')} onClick={closeHandler}>
+                <ul >
+                    {
+                        links.map(l => {
+                            return (
+                                <li key={l.name} >
+                                    <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </nav>
             <header className={classes.header}>
                 <Wrapper addClass='flex'>
+                    <div className={classes.menu} onClick={toggleHandler}>
+                        <div className={hamburgerClasses.join(' ')}></div>
+                    </div>
                     <div className={classes.logo} onClick={closeHandler}>
                         <NavLink href='/' ><img src={logo} alt="logo" /></NavLink>
                     </div>
-                    <nav>
+                    <nav className={classes.nav}>
                         <ul className={classes.navbar}>
                             {
                                 links.map(l => {
@@ -72,25 +88,9 @@ export default function Navigation() {
                             }
                         </ul>
                     </nav>
-                    <div className={classes.menu} onClick={toggleHandler}>
-                        <div className={hamburgerClasses.join(' ')}></div>
-                    </div>
                 </Wrapper>
                 <Separator />
             </header>
-            <nav>
-                <ul className={sidebarClasses.join(' ')} onClick={closeHandler}>
-                    {
-                        links.map(l => {
-                            return (
-                                <li key={l.name} >
-                                    <NavLink href={l.path} addClass='side'>{l.name}</NavLink>
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
-            </nav>
         </>
     );
 }
