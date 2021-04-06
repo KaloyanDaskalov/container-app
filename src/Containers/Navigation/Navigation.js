@@ -34,9 +34,6 @@ export default function Navigation() {
     const sidebarClasses = [classes.sidebar];
 
     const toggleHandler = () => {
-        if (toggle === false) {
-            window.scrollTo(0, 0);
-        }
         setToggle(!toggle);
     };
 

@@ -8,8 +8,8 @@ import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMess
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
-import NavLink from '../UI/NavLink/NavLink';
-import Loader from "../UI/Loader/Loader";
+import NavLink from '../../components/UI/NavLink/NavLink';
+import Loader from "../../components/UI/Loader/Loader";
 
 export default function ForgotPassword() {
 

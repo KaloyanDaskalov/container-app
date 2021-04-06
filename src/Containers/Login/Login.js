@@ -1,6 +1,6 @@
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
-import { emailValidation, checkLength, isEqual } from '../../Utility/index';
+import { emailValidation, checkLength } from '../../Utility/index';
 
 import FormCard from '../../components/UI/FormCard/FormCard';
 import Title from '../../components/UI/FormCard/Title/Title';
@@ -9,14 +9,13 @@ import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMess
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
-import NavLink from '../UI/NavLink/NavLink';
-import Loader from '../UI/Loader/Loader';
+import NavLink from '../../components/UI/NavLink/NavLink';
+import Loader from '../../components/UI/Loader/Loader';
 
-export default function SignUp() {
+export default function Login() {
+	const { state: { email, password, error, message, emailError, passwordError, loading }, dispatch } = useCommonState();
 
-	const { state: { email, password, confirmPassword, error, message, emailError, passwordError, confirmPasswordError, loading }, dispatch } = useCommonState();
-
-	const { signup } = useAuth();
+	const { login } = useAuth();
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
@@ -31,24 +30,22 @@ export default function SignUp() {
 			return dispatch({ type: 'PASSWORD_ERROR' });
 		}
 
-		if (!isEqual(password, confirmPassword)) {
-			return dispatch({ type: 'CONFIRM_PASSWORD_ERROR' });
-		}
-
 		try {
 			dispatch({ type: 'START_LOADING' });
-			await signup(email, password);
+			await login(email, password);
 		} catch (error) {
-			dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to create account') });
+			dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to login') });
 		}
+
 		dispatch({ type: 'END_LOADING' });
+
 	};
 
 	const inputHandler = (e) => {
 		dispatch({ type: e.target.placeholder, value: e.target.value });
 	};
 
-	const signUpForm = (
+	const loginForm = (
 		<Form submit={(e) => submitHandler(e)}>
 			<Input
 				attributes={{ placeholder: 'Email', type: 'text', required: true }}
@@ -58,23 +55,19 @@ export default function SignUp() {
 				attributes={{ placeholder: 'Password', type: 'password', required: true }}
 				getValue={(e) => inputHandler(e)}
 				showError={passwordError} />
-			<Input
-				attributes={{ placeholder: 'Confirm Password', type: 'password', required: true }}
-				getValue={(e) => inputHandler(e)}
-				showError={confirmPasswordError} />
-			<Message>* Password must be 6 to 15 characters long</Message>
-			<Button attributes={{ type: 'submit' }}>Sign Up</Button>
+			<Button attributes={{ type: 'submit' }}>Login</Button>
 		</Form>
 	);
 
 	return (
 		<FormCard>
-			<Title>Sign Up</Title>
+			<Title>Login</Title>
 			<Message>
-				Already a member? <NavLink href='/login' addClass='nested'>Login</NavLink>
+				Not a member? <NavLink href='/signup' addClass='nested'>Sign Up Now</NavLink>
 			</Message>
 			<HiddenMessage showError={error}>{message}</HiddenMessage>
-			{loading ? <Loader /> : signUpForm}
+			{loading ? <Loader /> : loginForm}
+			<NavLink href='/forgot-password' addClass='nested'>Forgot Password?</NavLink>
 		</FormCard>
 	);
 }
