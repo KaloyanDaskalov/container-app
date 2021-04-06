@@ -54,3 +54,15 @@ ul {
 a {
   text-decoration: none;
 }
+
+input::placeholder {
+  font-style: italic;
+  color: var(--cadet);
+}
+
+::-moz-placeholder {
+  opacity: 0.8;
+}
+
+/* ::-webkit-input-placeholder 
+  Chrome/Opera/Safari */
