@@ -4,7 +4,7 @@ import { auth } from '../firebase/firebase';
 import Loader from '../components/UI/Loader/Loader';
 import Wrapper from '../components/Wrapper/Wrapper';
 
-const AuthContext = React.createContext();
+export const AuthContext = React.createContext();
 
 export function useAuth() {
 	return useContext(AuthContext);

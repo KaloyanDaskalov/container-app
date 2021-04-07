@@ -1,5 +1,5 @@
 .buttons {
-  width: min(80%, 40rem);
+  width: min(100%, 40rem);
   margin: 0 auto;
   display: flex;
   flex-direction: column;

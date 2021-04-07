@@ -11,12 +11,6 @@
   min-height: 10rem;
 }
 
-.area::placeholder {
-  font-style: italic;
-  color: var(--cadet);
-  opacity: 0.8;
-}
-
 .error {
   border-bottom: 2px solid var(--sienna);
 }

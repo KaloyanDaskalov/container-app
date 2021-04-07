@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAuth } from '../../state/Auth';
 import useCommonState from '../../state/useCommonState';
 import { emailValidation, checkLength, isEqual } from '../../Utility/index';
@@ -9,13 +10,17 @@ import HiddenMessage from '../../components/UI/FormCard/HiddenMessage/HiddenMess
 import Form from '../../components/UI/FormCard/Form/Form';
 import Input from '../../components/UI/FormCard/Input/Input';
 import Button from '../../components/UI/FormCard/Button/Button';
-import Loader from '../UI/Loader/Loader';
+import Loader from '../../components/UI/Loader/Loader';
 
 export default function Profile() {
 
     const { state: { email, password, confirmPassword, error, message, emailError, passwordError, confirmPasswordError, loading }, dispatch } = useCommonState();
 
     const { user, updateEmail, updatePassword, logout } = useAuth();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
 
     const emailHandler = async (e) => {
         e.preventDefault();
@@ -54,7 +59,7 @@ export default function Profile() {
             await updatePassword(password);
             dispatch({ type: 'SUCCESS', success: 'Success! Logout and login with your new password' });
         } catch (error) {
-            dispatch({ type: 'ASYNC_ERROR', err: error.message || 'Failed to update' });
+            dispatch({ type: 'ASYNC_ERROR', err: (error.message || 'Failed to update') });
         }
         dispatch({ type: 'END_LOADING' });
     };

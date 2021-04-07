@@ -11,7 +11,7 @@ import Footer from './components/Footer/Footer';
 import Login from './Containers/Login/Login';
 import SignUp from './Containers/SignUp/SignUp';
 import Home from './Containers/Home/Home';
-import Profile from './components/Profile/Profile';
+import Profile from './Containers/Profile/Profile';
 import Create from './Containers/Create/Create';
 import Details from './Containers/Details/Details';
 import MyArticles from './Containers/MyArticles/MyArticles';

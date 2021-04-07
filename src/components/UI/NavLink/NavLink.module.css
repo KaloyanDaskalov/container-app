@@ -44,3 +44,9 @@
   border-bottom: 1px solid var(--crayola);
   display: block;
 }
+
+@media only screen and (max-height: 600px) {
+  .side {
+    padding: 1rem 8rem;
+  }
+}

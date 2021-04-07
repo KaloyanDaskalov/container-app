@@ -89,7 +89,7 @@ export default function Update(props) {
 
     return (
         <FormCard addClass='wide'>
-            <Title>Create Article</Title>
+            <Title>Update Article</Title>
             <HiddenMessage showError={error || fetchError || fetchSuccess}>
                 {setMessage(error, fetchError, message, fetchErrorMessage, fetchSuccess, fetchSuccessMessage)}
             </HiddenMessage>

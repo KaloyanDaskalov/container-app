@@ -5,7 +5,7 @@
   margin: 0 auto;
   color: var(--cadet);
   background-color: var(--magnolia);
-  width: min(80%, 40rem);
+  width: min(100%, 40rem);
 }
 
 .article {
