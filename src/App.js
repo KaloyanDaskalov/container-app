@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './hoc/PrivateRoute';
 import PublicRoute from './hoc/PublicRoute';
+import ErrorBoundary from './hoc/ErrorBoundary';
 
 import Hero from './components/Hero/Hero';
 import Navigation from './Containers/Navigation/Navigation';
@@ -28,23 +29,25 @@ function App() {
   return (
     <>
       <Navigation />
-      <Switch>
-        <PrivateRoute path='/' exact component={Home} />
-        <PrivateRoute path='/profile' component={Profile} />
-        <PrivateRoute path='/create' component={Create} />
-        <PrivateRoute path='/details/:id' component={Details} />
-        <PrivateRoute path='/update/:id' component={Update} />
-        <PrivateRoute path='/my-articles' component={MyArticles} />
-        <PublicRoute path='/hero' component={Hero} />
-        <PublicRoute path='/login' component={Login} />
-        <PublicRoute path='/signup' component={SignUp} />
-        <Suspense fallback={<Loader />}>
-          <PublicRoute path='/forgot-password' component={ForgotPassword} />
-          <Route path='/about' component={About} />
-          <Route path='/contact' component={ContactUs} />
-        </Suspense>
-        <Redirect from='/' to='/' />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          <PrivateRoute path='/' exact component={Home} />
+          <PrivateRoute path='/profile' component={Profile} />
+          <PrivateRoute path='/create' component={Create} />
+          <PrivateRoute path='/details/:id' component={Details} />
+          <PrivateRoute path='/update/:id' component={Update} />
+          <PrivateRoute path='/my-articles' component={MyArticles} />
+          <PublicRoute path='/hero' component={Hero} />
+          <PublicRoute path='/login' component={Login} />
+          <PublicRoute path='/signup' component={SignUp} />
+          <Suspense fallback={<Loader />}>
+            <PublicRoute path='/forgot-password' component={ForgotPassword} />
+            <Route path='/about' component={About} />
+            <Route path='/contact' component={ContactUs} />
+          </Suspense>
+          <Redirect from='/' to='/' />
+        </Switch>
+      </ErrorBoundary>
       <Footer />
     </>
   );
