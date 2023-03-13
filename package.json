@@ -1,6 +1,6 @@
 {
   "name": "reactjs-course",
-  "homepage":"https://kdev.bg/",
+  "homepage": "https://kdev.bg/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,9 +10,9 @@
     "firebase": "^8.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-icons": "^4.2.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
